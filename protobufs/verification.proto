@@ -1,0 +1,26 @@
+syntax = "proto3";
+import "message.proto";
+
+/**
+ * A MessageData object contains properties common to all messages and wraps a body object which
+ * contains properties specific to the MessageType.
+ */
+message MessageDataVerificationAddEthAddress {
+  MessageType type_ = 1; // Type of message contained in the body
+  uint64 fid = 2; // Farcaster ID of the user producing the message
+  uint32 timestamp = 3; // Farcaster epoch timestamp in seconds
+  FarcasterNetwork network = 4; // Farcaster network the message is intended for
+  VerificationAddEthAddressBody verification_add_eth_address_body = 5;
+}
+
+/**
+ * A MessageData object contains properties common to all messages and wraps a body object which
+ * contains properties specific to the MessageType.
+ */
+message MessageDataVerificationRemove {
+  MessageType type_ = 1; // Type of message contained in the body
+  uint64 fid = 2; // Farcaster ID of the user producing the message
+  uint32 timestamp = 3; // Farcaster epoch timestamp in seconds
+  FarcasterNetwork network = 4; // Farcaster network the message is intended for
+  VerificationRemoveBody verification_remove_body = 5;
+}

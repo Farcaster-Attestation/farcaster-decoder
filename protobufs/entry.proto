@@ -1,0 +1,4 @@
+syntax = "proto3";
+
+import "message.proto";
+import "verification.proto";
