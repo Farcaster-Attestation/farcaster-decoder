@@ -3,11 +3,11 @@ pragma solidity ^0.8.9;
 
 import "../protobufs/verification.proto.sol";
 
-error InvalidEncoding();
-error InvalidMessageType();
+library MessageDataVerificationDecoder {
+    error InvalidEncoding();
+    error InvalidMessageType();
 
-library MessageDataVerificationAddEthAddressDecoder {
-    function decode(
+    function decodeVerificationAddEthAddress(
         bytes memory message
     )
         public
@@ -23,14 +23,12 @@ library MessageDataVerificationAddEthAddressDecoder {
             revert InvalidEncoding();
         }
 
-        if (messageData.type_ != MessageType.MESSAGE_TYPE_CAST_ADD) {
+        if (messageData.type_ != MessageType.MESSAGE_TYPE_VERIFICATION_ADD_ETH_ADDRESS) {
             revert InvalidMessageType();
         }
     }
-}
 
-library MessageDataVerificationRemoveDecoder {
-    function decode(
+    function decodeVerificationRemove(
         bytes memory message
     )
         public
@@ -44,6 +42,10 @@ library MessageDataVerificationRemoveDecoder {
 
         if (!success) {
             revert InvalidEncoding();
+        }
+
+        if (messageData.type_ != MessageType.MESSAGE_TYPE_VERIFICATION_REMOVE) {
+            revert InvalidMessageType();
         }
     }
 }

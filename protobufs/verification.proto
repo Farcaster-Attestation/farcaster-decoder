@@ -10,7 +10,19 @@ message MessageDataVerificationAddEthAddress {
   uint64 fid = 2; // Farcaster ID of the user producing the message
   uint32 timestamp = 3; // Farcaster epoch timestamp in seconds
   FarcasterNetwork network = 4; // Farcaster network the message is intended for
-  VerificationAddEthAddressBody verification_add_eth_address_body = 5;
+
+  bool cast_add_body = 5;
+  bool cast_remove_body = 6;
+  bool reaction_body = 7;
+  bool empty = 8;
+  VerificationAddEthAddressBody verification_add_eth_address_body = 9;
+  bool verification_remove_body = 10;
+  bool deprecated_signer_add_body = 11;
+  bool user_data_body = 12;
+  bool deprecated_signer_remove_body = 13;
+  bool link_body = 14;
+  bool username_proof_body = 15;
+  bool frame_action_body = 16;
 }
 
 /**
@@ -22,5 +34,17 @@ message MessageDataVerificationRemove {
   uint64 fid = 2; // Farcaster ID of the user producing the message
   uint32 timestamp = 3; // Farcaster epoch timestamp in seconds
   FarcasterNetwork network = 4; // Farcaster network the message is intended for
-  VerificationRemoveBody verification_remove_body = 5;
+
+  bool cast_add_body = 5;
+  bool cast_remove_body = 6;
+  bool reaction_body = 7;
+  bool empty = 8;
+  bool verification_add_eth_address_body = 9;
+  VerificationRemoveBody verification_remove_body = 10;
+  bool deprecated_signer_add_body = 11;
+  bool user_data_body = 12;
+  bool deprecated_signer_remove_body = 13;
+  bool link_body = 14;
+  bool username_proof_body = 15;
+  bool frame_action_body = 16;
 }

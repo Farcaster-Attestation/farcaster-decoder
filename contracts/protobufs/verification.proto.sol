@@ -11,7 +11,18 @@ struct MessageDataVerificationAddEthAddress {
     uint64 fid;
     uint32 timestamp;
     FarcasterNetwork network;
+    bool cast_add_body;
+    bool cast_remove_body;
+    bool reaction_body;
+    bool empty;
     VerificationAddEthAddressBody verification_add_eth_address_body;
+    bool verification_remove_body;
+    bool deprecated_signer_add_body;
+    bool user_data_body;
+    bool deprecated_signer_remove_body;
+    bool link_body;
+    bool username_proof_body;
+    bool frame_action_body;
 }
 
 library MessageDataVerificationAddEthAddressCodec {
@@ -39,7 +50,7 @@ library MessageDataVerificationAddEthAddressCodec {
             }
 
             // Check that the field number is within bounds
-            if (field_number > 5) {
+            if (field_number > 16) {
                 return (false, pos, instance);
             }
 
@@ -89,7 +100,51 @@ library MessageDataVerificationAddEthAddressCodec {
         }
 
         if (field_number == 5) {
+            return wire_type == ProtobufLib.WireType.Varint;
+        }
+
+        if (field_number == 6) {
+            return wire_type == ProtobufLib.WireType.Varint;
+        }
+
+        if (field_number == 7) {
+            return wire_type == ProtobufLib.WireType.Varint;
+        }
+
+        if (field_number == 8) {
+            return wire_type == ProtobufLib.WireType.Varint;
+        }
+
+        if (field_number == 9) {
             return wire_type == ProtobufLib.WireType.LengthDelimited;
+        }
+
+        if (field_number == 10) {
+            return wire_type == ProtobufLib.WireType.Varint;
+        }
+
+        if (field_number == 11) {
+            return wire_type == ProtobufLib.WireType.Varint;
+        }
+
+        if (field_number == 12) {
+            return wire_type == ProtobufLib.WireType.Varint;
+        }
+
+        if (field_number == 13) {
+            return wire_type == ProtobufLib.WireType.Varint;
+        }
+
+        if (field_number == 14) {
+            return wire_type == ProtobufLib.WireType.Varint;
+        }
+
+        if (field_number == 15) {
+            return wire_type == ProtobufLib.WireType.Varint;
+        }
+
+        if (field_number == 16) {
+            return wire_type == ProtobufLib.WireType.Varint;
         }
 
         return false;
@@ -141,6 +196,116 @@ library MessageDataVerificationAddEthAddressCodec {
         if (field_number == 5) {
             bool success;
             (success, pos) = decode_5(pos, buf, instance);
+            if (!success) {
+                return (false, pos);
+            }
+
+            return (true, pos);
+        }
+
+        if (field_number == 6) {
+            bool success;
+            (success, pos) = decode_6(pos, buf, instance);
+            if (!success) {
+                return (false, pos);
+            }
+
+            return (true, pos);
+        }
+
+        if (field_number == 7) {
+            bool success;
+            (success, pos) = decode_7(pos, buf, instance);
+            if (!success) {
+                return (false, pos);
+            }
+
+            return (true, pos);
+        }
+
+        if (field_number == 8) {
+            bool success;
+            (success, pos) = decode_8(pos, buf, instance);
+            if (!success) {
+                return (false, pos);
+            }
+
+            return (true, pos);
+        }
+
+        if (field_number == 9) {
+            bool success;
+            (success, pos) = decode_9(pos, buf, instance);
+            if (!success) {
+                return (false, pos);
+            }
+
+            return (true, pos);
+        }
+
+        if (field_number == 10) {
+            bool success;
+            (success, pos) = decode_10(pos, buf, instance);
+            if (!success) {
+                return (false, pos);
+            }
+
+            return (true, pos);
+        }
+
+        if (field_number == 11) {
+            bool success;
+            (success, pos) = decode_11(pos, buf, instance);
+            if (!success) {
+                return (false, pos);
+            }
+
+            return (true, pos);
+        }
+
+        if (field_number == 12) {
+            bool success;
+            (success, pos) = decode_12(pos, buf, instance);
+            if (!success) {
+                return (false, pos);
+            }
+
+            return (true, pos);
+        }
+
+        if (field_number == 13) {
+            bool success;
+            (success, pos) = decode_13(pos, buf, instance);
+            if (!success) {
+                return (false, pos);
+            }
+
+            return (true, pos);
+        }
+
+        if (field_number == 14) {
+            bool success;
+            (success, pos) = decode_14(pos, buf, instance);
+            if (!success) {
+                return (false, pos);
+            }
+
+            return (true, pos);
+        }
+
+        if (field_number == 15) {
+            bool success;
+            (success, pos) = decode_15(pos, buf, instance);
+            if (!success) {
+                return (false, pos);
+            }
+
+            return (true, pos);
+        }
+
+        if (field_number == 16) {
+            bool success;
+            (success, pos) = decode_16(pos, buf, instance);
             if (!success) {
                 return (false, pos);
             }
@@ -241,8 +406,88 @@ library MessageDataVerificationAddEthAddressCodec {
         return (true, pos);
     }
 
-    // MessageDataVerificationAddEthAddress.verification_add_eth_address_body
+    // MessageDataVerificationAddEthAddress.cast_add_body
     function decode_5(uint64 pos, bytes memory buf, MessageDataVerificationAddEthAddress memory instance) internal pure returns (bool, uint64) {
+        bool success;
+
+        bool v;
+        (success, pos, v) = ProtobufLib.decode_bool(pos, buf);
+        if (!success) {
+            return (false, pos);
+        }
+
+        // Default value must be omitted
+        if (v == false) {
+            return (false, pos);
+        }
+
+        instance.cast_add_body = v;
+
+        return (true, pos);
+    }
+
+    // MessageDataVerificationAddEthAddress.cast_remove_body
+    function decode_6(uint64 pos, bytes memory buf, MessageDataVerificationAddEthAddress memory instance) internal pure returns (bool, uint64) {
+        bool success;
+
+        bool v;
+        (success, pos, v) = ProtobufLib.decode_bool(pos, buf);
+        if (!success) {
+            return (false, pos);
+        }
+
+        // Default value must be omitted
+        if (v == false) {
+            return (false, pos);
+        }
+
+        instance.cast_remove_body = v;
+
+        return (true, pos);
+    }
+
+    // MessageDataVerificationAddEthAddress.reaction_body
+    function decode_7(uint64 pos, bytes memory buf, MessageDataVerificationAddEthAddress memory instance) internal pure returns (bool, uint64) {
+        bool success;
+
+        bool v;
+        (success, pos, v) = ProtobufLib.decode_bool(pos, buf);
+        if (!success) {
+            return (false, pos);
+        }
+
+        // Default value must be omitted
+        if (v == false) {
+            return (false, pos);
+        }
+
+        instance.reaction_body = v;
+
+        return (true, pos);
+    }
+
+    // MessageDataVerificationAddEthAddress.empty
+    function decode_8(uint64 pos, bytes memory buf, MessageDataVerificationAddEthAddress memory instance) internal pure returns (bool, uint64) {
+        bool success;
+
+        bool v;
+        (success, pos, v) = ProtobufLib.decode_bool(pos, buf);
+        if (!success) {
+            return (false, pos);
+        }
+
+        // Default value must be omitted
+        if (v == false) {
+            return (false, pos);
+        }
+
+        instance.empty = v;
+
+        return (true, pos);
+    }
+
+    // MessageDataVerificationAddEthAddress.verification_add_eth_address_body
+    function decode_9(uint64 pos, bytes memory buf, MessageDataVerificationAddEthAddress memory instance) internal pure returns (bool, uint64) {
         bool success;
 
         uint64 len;
@@ -267,6 +512,146 @@ library MessageDataVerificationAddEthAddressCodec {
         return (true, pos);
     }
 
+    // MessageDataVerificationAddEthAddress.verification_remove_body
+    function decode_10(uint64 pos, bytes memory buf, MessageDataVerificationAddEthAddress memory instance) internal pure returns (bool, uint64) {
+        bool success;
+
+        bool v;
+        (success, pos, v) = ProtobufLib.decode_bool(pos, buf);
+        if (!success) {
+            return (false, pos);
+        }
+
+        // Default value must be omitted
+        if (v == false) {
+            return (false, pos);
+        }
+
+        instance.verification_remove_body = v;
+
+        return (true, pos);
+    }
+
+    // MessageDataVerificationAddEthAddress.deprecated_signer_add_body
+    function decode_11(uint64 pos, bytes memory buf, MessageDataVerificationAddEthAddress memory instance) internal pure returns (bool, uint64) {
+        bool success;
+
+        bool v;
+        (success, pos, v) = ProtobufLib.decode_bool(pos, buf);
+        if (!success) {
+            return (false, pos);
+        }
+
+        // Default value must be omitted
+        if (v == false) {
+            return (false, pos);
+        }
+
+        instance.deprecated_signer_add_body = v;
+
+        return (true, pos);
+    }
+
+    // MessageDataVerificationAddEthAddress.user_data_body
+    function decode_12(uint64 pos, bytes memory buf, MessageDataVerificationAddEthAddress memory instance) internal pure returns (bool, uint64) {
+        bool success;
+
+        bool v;
+        (success, pos, v) = ProtobufLib.decode_bool(pos, buf);
+        if (!success) {
+            return (false, pos);
+        }
+
+        // Default value must be omitted
+        if (v == false) {
+            return (false, pos);
+        }
+
+        instance.user_data_body = v;
+
+        return (true, pos);
+    }
+
+    // MessageDataVerificationAddEthAddress.deprecated_signer_remove_body
+    function decode_13(uint64 pos, bytes memory buf, MessageDataVerificationAddEthAddress memory instance) internal pure returns (bool, uint64) {
+        bool success;
+
+        bool v;
+        (success, pos, v) = ProtobufLib.decode_bool(pos, buf);
+        if (!success) {
+            return (false, pos);
+        }
+
+        // Default value must be omitted
+        if (v == false) {
+            return (false, pos);
+        }
+
+        instance.deprecated_signer_remove_body = v;
+
+        return (true, pos);
+    }
+
+    // MessageDataVerificationAddEthAddress.link_body
+    function decode_14(uint64 pos, bytes memory buf, MessageDataVerificationAddEthAddress memory instance) internal pure returns (bool, uint64) {
+        bool success;
+
+        bool v;
+        (success, pos, v) = ProtobufLib.decode_bool(pos, buf);
+        if (!success) {
+            return (false, pos);
+        }
+
+        // Default value must be omitted
+        if (v == false) {
+            return (false, pos);
+        }
+
+        instance.link_body = v;
+
+        return (true, pos);
+    }
+
+    // MessageDataVerificationAddEthAddress.username_proof_body
+    function decode_15(uint64 pos, bytes memory buf, MessageDataVerificationAddEthAddress memory instance) internal pure returns (bool, uint64) {
+        bool success;
+
+        bool v;
+        (success, pos, v) = ProtobufLib.decode_bool(pos, buf);
+        if (!success) {
+            return (false, pos);
+        }
+
+        // Default value must be omitted
+        if (v == false) {
+            return (false, pos);
+        }
+
+        instance.username_proof_body = v;
+
+        return (true, pos);
+    }
+
+    // MessageDataVerificationAddEthAddress.frame_action_body
+    function decode_16(uint64 pos, bytes memory buf, MessageDataVerificationAddEthAddress memory instance) internal pure returns (bool, uint64) {
+        bool success;
+
+        bool v;
+        (success, pos, v) = ProtobufLib.decode_bool(pos, buf);
+        if (!success) {
+            return (false, pos);
+        }
+
+        // Default value must be omitted
+        if (v == false) {
+            return (false, pos);
+        }
+
+        instance.frame_action_body = v;
+
+        return (true, pos);
+    }
+
 }
 
 struct MessageDataVerificationRemove {
@@ -274,7 +659,18 @@ struct MessageDataVerificationRemove {
     uint64 fid;
     uint32 timestamp;
     FarcasterNetwork network;
+    bool cast_add_body;
+    bool cast_remove_body;
+    bool reaction_body;
+    bool empty;
+    bool verification_add_eth_address_body;
     VerificationRemoveBody verification_remove_body;
+    bool deprecated_signer_add_body;
+    bool user_data_body;
+    bool deprecated_signer_remove_body;
+    bool link_body;
+    bool username_proof_body;
+    bool frame_action_body;
 }
 
 library MessageDataVerificationRemoveCodec {
@@ -302,7 +698,7 @@ library MessageDataVerificationRemoveCodec {
             }
 
             // Check that the field number is within bounds
-            if (field_number > 5) {
+            if (field_number > 16) {
                 return (false, pos, instance);
             }
 
@@ -352,7 +748,51 @@ library MessageDataVerificationRemoveCodec {
         }
 
         if (field_number == 5) {
+            return wire_type == ProtobufLib.WireType.Varint;
+        }
+
+        if (field_number == 6) {
+            return wire_type == ProtobufLib.WireType.Varint;
+        }
+
+        if (field_number == 7) {
+            return wire_type == ProtobufLib.WireType.Varint;
+        }
+
+        if (field_number == 8) {
+            return wire_type == ProtobufLib.WireType.Varint;
+        }
+
+        if (field_number == 9) {
+            return wire_type == ProtobufLib.WireType.Varint;
+        }
+
+        if (field_number == 10) {
             return wire_type == ProtobufLib.WireType.LengthDelimited;
+        }
+
+        if (field_number == 11) {
+            return wire_type == ProtobufLib.WireType.Varint;
+        }
+
+        if (field_number == 12) {
+            return wire_type == ProtobufLib.WireType.Varint;
+        }
+
+        if (field_number == 13) {
+            return wire_type == ProtobufLib.WireType.Varint;
+        }
+
+        if (field_number == 14) {
+            return wire_type == ProtobufLib.WireType.Varint;
+        }
+
+        if (field_number == 15) {
+            return wire_type == ProtobufLib.WireType.Varint;
+        }
+
+        if (field_number == 16) {
+            return wire_type == ProtobufLib.WireType.Varint;
         }
 
         return false;
@@ -404,6 +844,116 @@ library MessageDataVerificationRemoveCodec {
         if (field_number == 5) {
             bool success;
             (success, pos) = decode_5(pos, buf, instance);
+            if (!success) {
+                return (false, pos);
+            }
+
+            return (true, pos);
+        }
+
+        if (field_number == 6) {
+            bool success;
+            (success, pos) = decode_6(pos, buf, instance);
+            if (!success) {
+                return (false, pos);
+            }
+
+            return (true, pos);
+        }
+
+        if (field_number == 7) {
+            bool success;
+            (success, pos) = decode_7(pos, buf, instance);
+            if (!success) {
+                return (false, pos);
+            }
+
+            return (true, pos);
+        }
+
+        if (field_number == 8) {
+            bool success;
+            (success, pos) = decode_8(pos, buf, instance);
+            if (!success) {
+                return (false, pos);
+            }
+
+            return (true, pos);
+        }
+
+        if (field_number == 9) {
+            bool success;
+            (success, pos) = decode_9(pos, buf, instance);
+            if (!success) {
+                return (false, pos);
+            }
+
+            return (true, pos);
+        }
+
+        if (field_number == 10) {
+            bool success;
+            (success, pos) = decode_10(pos, buf, instance);
+            if (!success) {
+                return (false, pos);
+            }
+
+            return (true, pos);
+        }
+
+        if (field_number == 11) {
+            bool success;
+            (success, pos) = decode_11(pos, buf, instance);
+            if (!success) {
+                return (false, pos);
+            }
+
+            return (true, pos);
+        }
+
+        if (field_number == 12) {
+            bool success;
+            (success, pos) = decode_12(pos, buf, instance);
+            if (!success) {
+                return (false, pos);
+            }
+
+            return (true, pos);
+        }
+
+        if (field_number == 13) {
+            bool success;
+            (success, pos) = decode_13(pos, buf, instance);
+            if (!success) {
+                return (false, pos);
+            }
+
+            return (true, pos);
+        }
+
+        if (field_number == 14) {
+            bool success;
+            (success, pos) = decode_14(pos, buf, instance);
+            if (!success) {
+                return (false, pos);
+            }
+
+            return (true, pos);
+        }
+
+        if (field_number == 15) {
+            bool success;
+            (success, pos) = decode_15(pos, buf, instance);
+            if (!success) {
+                return (false, pos);
+            }
+
+            return (true, pos);
+        }
+
+        if (field_number == 16) {
+            bool success;
+            (success, pos) = decode_16(pos, buf, instance);
             if (!success) {
                 return (false, pos);
             }
@@ -504,8 +1054,108 @@ library MessageDataVerificationRemoveCodec {
         return (true, pos);
     }
 
-    // MessageDataVerificationRemove.verification_remove_body
+    // MessageDataVerificationRemove.cast_add_body
     function decode_5(uint64 pos, bytes memory buf, MessageDataVerificationRemove memory instance) internal pure returns (bool, uint64) {
+        bool success;
+
+        bool v;
+        (success, pos, v) = ProtobufLib.decode_bool(pos, buf);
+        if (!success) {
+            return (false, pos);
+        }
+
+        // Default value must be omitted
+        if (v == false) {
+            return (false, pos);
+        }
+
+        instance.cast_add_body = v;
+
+        return (true, pos);
+    }
+
+    // MessageDataVerificationRemove.cast_remove_body
+    function decode_6(uint64 pos, bytes memory buf, MessageDataVerificationRemove memory instance) internal pure returns (bool, uint64) {
+        bool success;
+
+        bool v;
+        (success, pos, v) = ProtobufLib.decode_bool(pos, buf);
+        if (!success) {
+            return (false, pos);
+        }
+
+        // Default value must be omitted
+        if (v == false) {
+            return (false, pos);
+        }
+
+        instance.cast_remove_body = v;
+
+        return (true, pos);
+    }
+
+    // MessageDataVerificationRemove.reaction_body
+    function decode_7(uint64 pos, bytes memory buf, MessageDataVerificationRemove memory instance) internal pure returns (bool, uint64) {
+        bool success;
+
+        bool v;
+        (success, pos, v) = ProtobufLib.decode_bool(pos, buf);
+        if (!success) {
+            return (false, pos);
+        }
+
+        // Default value must be omitted
+        if (v == false) {
+            return (false, pos);
+        }
+
+        instance.reaction_body = v;
+
+        return (true, pos);
+    }
+
+    // MessageDataVerificationRemove.empty
+    function decode_8(uint64 pos, bytes memory buf, MessageDataVerificationRemove memory instance) internal pure returns (bool, uint64) {
+        bool success;
+
+        bool v;
+        (success, pos, v) = ProtobufLib.decode_bool(pos, buf);
+        if (!success) {
+            return (false, pos);
+        }
+
+        // Default value must be omitted
+        if (v == false) {
+            return (false, pos);
+        }
+
+        instance.empty = v;
+
+        return (true, pos);
+    }
+
+    // MessageDataVerificationRemove.verification_add_eth_address_body
+    function decode_9(uint64 pos, bytes memory buf, MessageDataVerificationRemove memory instance) internal pure returns (bool, uint64) {
+        bool success;
+
+        bool v;
+        (success, pos, v) = ProtobufLib.decode_bool(pos, buf);
+        if (!success) {
+            return (false, pos);
+        }
+
+        // Default value must be omitted
+        if (v == false) {
+            return (false, pos);
+        }
+
+        instance.verification_add_eth_address_body = v;
+
+        return (true, pos);
+    }
+
+    // MessageDataVerificationRemove.verification_remove_body
+    function decode_10(uint64 pos, bytes memory buf, MessageDataVerificationRemove memory instance) internal pure returns (bool, uint64) {
         bool success;
 
         uint64 len;
@@ -526,6 +1176,126 @@ library MessageDataVerificationRemoveCodec {
         }
 
         instance.verification_remove_body = nestedInstance;
+
+        return (true, pos);
+    }
+
+    // MessageDataVerificationRemove.deprecated_signer_add_body
+    function decode_11(uint64 pos, bytes memory buf, MessageDataVerificationRemove memory instance) internal pure returns (bool, uint64) {
+        bool success;
+
+        bool v;
+        (success, pos, v) = ProtobufLib.decode_bool(pos, buf);
+        if (!success) {
+            return (false, pos);
+        }
+
+        // Default value must be omitted
+        if (v == false) {
+            return (false, pos);
+        }
+
+        instance.deprecated_signer_add_body = v;
+
+        return (true, pos);
+    }
+
+    // MessageDataVerificationRemove.user_data_body
+    function decode_12(uint64 pos, bytes memory buf, MessageDataVerificationRemove memory instance) internal pure returns (bool, uint64) {
+        bool success;
+
+        bool v;
+        (success, pos, v) = ProtobufLib.decode_bool(pos, buf);
+        if (!success) {
+            return (false, pos);
+        }
+
+        // Default value must be omitted
+        if (v == false) {
+            return (false, pos);
+        }
+
+        instance.user_data_body = v;
+
+        return (true, pos);
+    }
+
+    // MessageDataVerificationRemove.deprecated_signer_remove_body
+    function decode_13(uint64 pos, bytes memory buf, MessageDataVerificationRemove memory instance) internal pure returns (bool, uint64) {
+        bool success;
+
+        bool v;
+        (success, pos, v) = ProtobufLib.decode_bool(pos, buf);
+        if (!success) {
+            return (false, pos);
+        }
+
+        // Default value must be omitted
+        if (v == false) {
+            return (false, pos);
+        }
+
+        instance.deprecated_signer_remove_body = v;
+
+        return (true, pos);
+    }
+
+    // MessageDataVerificationRemove.link_body
+    function decode_14(uint64 pos, bytes memory buf, MessageDataVerificationRemove memory instance) internal pure returns (bool, uint64) {
+        bool success;
+
+        bool v;
+        (success, pos, v) = ProtobufLib.decode_bool(pos, buf);
+        if (!success) {
+            return (false, pos);
+        }
+
+        // Default value must be omitted
+        if (v == false) {
+            return (false, pos);
+        }
+
+        instance.link_body = v;
+
+        return (true, pos);
+    }
+
+    // MessageDataVerificationRemove.username_proof_body
+    function decode_15(uint64 pos, bytes memory buf, MessageDataVerificationRemove memory instance) internal pure returns (bool, uint64) {
+        bool success;
+
+        bool v;
+        (success, pos, v) = ProtobufLib.decode_bool(pos, buf);
+        if (!success) {
+            return (false, pos);
+        }
+
+        // Default value must be omitted
+        if (v == false) {
+            return (false, pos);
+        }
+
+        instance.username_proof_body = v;
+
+        return (true, pos);
+    }
+
+    // MessageDataVerificationRemove.frame_action_body
+    function decode_16(uint64 pos, bytes memory buf, MessageDataVerificationRemove memory instance) internal pure returns (bool, uint64) {
+        bool success;
+
+        bool v;
+        (success, pos, v) = ProtobufLib.decode_bool(pos, buf);
+        if (!success) {
+            return (false, pos);
+        }
+
+        // Default value must be omitted
+        if (v == false) {
+            return (false, pos);
+        }
+
+        instance.frame_action_body = v;
 
         return (true, pos);
     }
