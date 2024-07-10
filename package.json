@@ -1,8 +1,8 @@
 {
-  "name": "farcaster-solidity",
-  "version": "1.4.0",
+  "name": "@farcaster-attestation/farcaster-solidity",
+  "version": "2.0.0",
   "main": "index.js",
-  "author": "Sergey Potekhin <hello@sergeypotekhin.com>",
+  "author": "Chomtana, Sergey Potekhin <hello@sergeypotekhin.com>",
   "license": "MIT",
   "description": "A collection of Solidity libraries for interacting with the Farcaster messages on-chain",
   "scripts": {
