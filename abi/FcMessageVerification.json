@@ -7,6 +7,24 @@
   {
     "inputs": [
       {
+        "internalType": "address",
+        "name": "ethAddress",
+        "type": "address"
+      },
+      {
+        "internalType": "bytes",
+        "name": "signature",
+        "type": "bytes"
+      }
+    ],
+    "name": "verifyEthAddressClaim",
+    "outputs": [],
+    "stateMutability": "pure",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
         "internalType": "bytes32",
         "name": "public_key",
         "type": "bytes32"

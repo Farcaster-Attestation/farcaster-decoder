@@ -6,7 +6,7 @@ pragma experimental ABIEncoderV2;
 import "@lazyledger/protobuf3-solidity-lib/contracts/ProtobufLib.sol";
 import "./message.proto.sol";
 
-struct MessageDataVerificationAddEthAddress {
+struct MessageDataVerificationAddAddress {
     MessageType type_;
     uint64 fid;
     uint32 timestamp;
@@ -15,7 +15,7 @@ struct MessageDataVerificationAddEthAddress {
     bool cast_remove_body;
     bool reaction_body;
     bool empty;
-    VerificationAddEthAddressBody verification_add_eth_address_body;
+    VerificationAddAddressBody verification_add_eth_address_body;
     bool verification_remove_body;
     bool deprecated_signer_add_body;
     bool user_data_body;
@@ -25,10 +25,10 @@ struct MessageDataVerificationAddEthAddress {
     bool frame_action_body;
 }
 
-library MessageDataVerificationAddEthAddressCodec {
-    function decode(uint64 initial_pos, bytes memory buf, uint64 len) internal pure returns (bool, uint64, MessageDataVerificationAddEthAddress memory) {
+library MessageDataVerificationAddAddressCodec {
+    function decode(uint64 initial_pos, bytes memory buf, uint64 len) internal pure returns (bool, uint64, MessageDataVerificationAddAddress memory) {
         // Message instance
-        MessageDataVerificationAddEthAddress memory instance;
+        MessageDataVerificationAddAddress memory instance;
         // Previous field number
         uint64 previous_field_number = 0;
         // Current position in the buffer
@@ -145,7 +145,7 @@ library MessageDataVerificationAddEthAddressCodec {
         return false;
     }
 
-    function decode_field(uint64 initial_pos, bytes memory buf, uint64 len, uint64 field_number, MessageDataVerificationAddEthAddress memory instance) internal pure returns (bool, uint64) {
+    function decode_field(uint64 initial_pos, bytes memory buf, uint64 len, uint64 field_number, MessageDataVerificationAddAddress memory instance) internal pure returns (bool, uint64) {
         uint64 pos = initial_pos;
 
         if (field_number == 1) {
@@ -311,8 +311,8 @@ library MessageDataVerificationAddEthAddressCodec {
         return (false, pos);
     }
 
-    // MessageDataVerificationAddEthAddress.type_
-    function decode_1(uint64 pos, bytes memory buf, MessageDataVerificationAddEthAddress memory instance) internal pure returns (bool, uint64) {
+    // MessageDataVerificationAddAddress.type_
+    function decode_1(uint64 pos, bytes memory buf, MessageDataVerificationAddAddress memory instance) internal pure returns (bool, uint64) {
         bool success;
 
         int32 v;
@@ -327,7 +327,7 @@ library MessageDataVerificationAddEthAddressCodec {
         }
 
         // Check that value is within enum range
-        if (v < 0 || v > 13) {
+        if (v < 0 || v > 14) {
             return (false, pos);
         }
 
@@ -336,8 +336,8 @@ library MessageDataVerificationAddEthAddressCodec {
         return (true, pos);
     }
 
-    // MessageDataVerificationAddEthAddress.fid
-    function decode_2(uint64 pos, bytes memory buf, MessageDataVerificationAddEthAddress memory instance) internal pure returns (bool, uint64) {
+    // MessageDataVerificationAddAddress.fid
+    function decode_2(uint64 pos, bytes memory buf, MessageDataVerificationAddAddress memory instance) internal pure returns (bool, uint64) {
         bool success;
 
         uint64 v;
@@ -356,8 +356,8 @@ library MessageDataVerificationAddEthAddressCodec {
         return (true, pos);
     }
 
-    // MessageDataVerificationAddEthAddress.timestamp
-    function decode_3(uint64 pos, bytes memory buf, MessageDataVerificationAddEthAddress memory instance) internal pure returns (bool, uint64) {
+    // MessageDataVerificationAddAddress.timestamp
+    function decode_3(uint64 pos, bytes memory buf, MessageDataVerificationAddAddress memory instance) internal pure returns (bool, uint64) {
         bool success;
 
         uint32 v;
@@ -376,8 +376,8 @@ library MessageDataVerificationAddEthAddressCodec {
         return (true, pos);
     }
 
-    // MessageDataVerificationAddEthAddress.network
-    function decode_4(uint64 pos, bytes memory buf, MessageDataVerificationAddEthAddress memory instance) internal pure returns (bool, uint64) {
+    // MessageDataVerificationAddAddress.network
+    function decode_4(uint64 pos, bytes memory buf, MessageDataVerificationAddAddress memory instance) internal pure returns (bool, uint64) {
         bool success;
 
         int32 v;
@@ -401,8 +401,8 @@ library MessageDataVerificationAddEthAddressCodec {
         return (true, pos);
     }
 
-    // MessageDataVerificationAddEthAddress.cast_add_body
-    function decode_5(uint64 pos, bytes memory buf, MessageDataVerificationAddEthAddress memory instance) internal pure returns (bool, uint64) {
+    // MessageDataVerificationAddAddress.cast_add_body
+    function decode_5(uint64 pos, bytes memory buf, MessageDataVerificationAddAddress memory instance) internal pure returns (bool, uint64) {
         bool success;
 
         bool v;
@@ -421,8 +421,8 @@ library MessageDataVerificationAddEthAddressCodec {
         return (true, pos);
     }
 
-    // MessageDataVerificationAddEthAddress.cast_remove_body
-    function decode_6(uint64 pos, bytes memory buf, MessageDataVerificationAddEthAddress memory instance) internal pure returns (bool, uint64) {
+    // MessageDataVerificationAddAddress.cast_remove_body
+    function decode_6(uint64 pos, bytes memory buf, MessageDataVerificationAddAddress memory instance) internal pure returns (bool, uint64) {
         bool success;
 
         bool v;
@@ -441,8 +441,8 @@ library MessageDataVerificationAddEthAddressCodec {
         return (true, pos);
     }
 
-    // MessageDataVerificationAddEthAddress.reaction_body
-    function decode_7(uint64 pos, bytes memory buf, MessageDataVerificationAddEthAddress memory instance) internal pure returns (bool, uint64) {
+    // MessageDataVerificationAddAddress.reaction_body
+    function decode_7(uint64 pos, bytes memory buf, MessageDataVerificationAddAddress memory instance) internal pure returns (bool, uint64) {
         bool success;
 
         bool v;
@@ -461,8 +461,8 @@ library MessageDataVerificationAddEthAddressCodec {
         return (true, pos);
     }
 
-    // MessageDataVerificationAddEthAddress.empty
-    function decode_8(uint64 pos, bytes memory buf, MessageDataVerificationAddEthAddress memory instance) internal pure returns (bool, uint64) {
+    // MessageDataVerificationAddAddress.empty
+    function decode_8(uint64 pos, bytes memory buf, MessageDataVerificationAddAddress memory instance) internal pure returns (bool, uint64) {
         bool success;
 
         bool v;
@@ -481,8 +481,8 @@ library MessageDataVerificationAddEthAddressCodec {
         return (true, pos);
     }
 
-    // MessageDataVerificationAddEthAddress.verification_add_eth_address_body
-    function decode_9(uint64 pos, bytes memory buf, MessageDataVerificationAddEthAddress memory instance) internal pure returns (bool, uint64) {
+    // MessageDataVerificationAddAddress.verification_add_eth_address_body
+    function decode_9(uint64 pos, bytes memory buf, MessageDataVerificationAddAddress memory instance) internal pure returns (bool, uint64) {
         bool success;
 
         uint64 len;
@@ -496,8 +496,8 @@ library MessageDataVerificationAddEthAddressCodec {
             return (false, pos);
         }
 
-        VerificationAddEthAddressBody memory nestedInstance;
-        (success, pos, nestedInstance) = VerificationAddEthAddressBodyCodec.decode(pos, buf, len);
+        VerificationAddAddressBody memory nestedInstance;
+        (success, pos, nestedInstance) = VerificationAddAddressBodyCodec.decode(pos, buf, len);
         if (!success) {
             return (false, pos);
         }
@@ -507,8 +507,8 @@ library MessageDataVerificationAddEthAddressCodec {
         return (true, pos);
     }
 
-    // MessageDataVerificationAddEthAddress.verification_remove_body
-    function decode_10(uint64 pos, bytes memory buf, MessageDataVerificationAddEthAddress memory instance) internal pure returns (bool, uint64) {
+    // MessageDataVerificationAddAddress.verification_remove_body
+    function decode_10(uint64 pos, bytes memory buf, MessageDataVerificationAddAddress memory instance) internal pure returns (bool, uint64) {
         bool success;
 
         bool v;
@@ -527,8 +527,8 @@ library MessageDataVerificationAddEthAddressCodec {
         return (true, pos);
     }
 
-    // MessageDataVerificationAddEthAddress.deprecated_signer_add_body
-    function decode_11(uint64 pos, bytes memory buf, MessageDataVerificationAddEthAddress memory instance) internal pure returns (bool, uint64) {
+    // MessageDataVerificationAddAddress.deprecated_signer_add_body
+    function decode_11(uint64 pos, bytes memory buf, MessageDataVerificationAddAddress memory instance) internal pure returns (bool, uint64) {
         bool success;
 
         bool v;
@@ -547,8 +547,8 @@ library MessageDataVerificationAddEthAddressCodec {
         return (true, pos);
     }
 
-    // MessageDataVerificationAddEthAddress.user_data_body
-    function decode_12(uint64 pos, bytes memory buf, MessageDataVerificationAddEthAddress memory instance) internal pure returns (bool, uint64) {
+    // MessageDataVerificationAddAddress.user_data_body
+    function decode_12(uint64 pos, bytes memory buf, MessageDataVerificationAddAddress memory instance) internal pure returns (bool, uint64) {
         bool success;
 
         bool v;
@@ -567,8 +567,8 @@ library MessageDataVerificationAddEthAddressCodec {
         return (true, pos);
     }
 
-    // MessageDataVerificationAddEthAddress.deprecated_signer_remove_body
-    function decode_13(uint64 pos, bytes memory buf, MessageDataVerificationAddEthAddress memory instance) internal pure returns (bool, uint64) {
+    // MessageDataVerificationAddAddress.deprecated_signer_remove_body
+    function decode_13(uint64 pos, bytes memory buf, MessageDataVerificationAddAddress memory instance) internal pure returns (bool, uint64) {
         bool success;
 
         bool v;
@@ -587,8 +587,8 @@ library MessageDataVerificationAddEthAddressCodec {
         return (true, pos);
     }
 
-    // MessageDataVerificationAddEthAddress.link_body
-    function decode_14(uint64 pos, bytes memory buf, MessageDataVerificationAddEthAddress memory instance) internal pure returns (bool, uint64) {
+    // MessageDataVerificationAddAddress.link_body
+    function decode_14(uint64 pos, bytes memory buf, MessageDataVerificationAddAddress memory instance) internal pure returns (bool, uint64) {
         bool success;
 
         bool v;
@@ -607,8 +607,8 @@ library MessageDataVerificationAddEthAddressCodec {
         return (true, pos);
     }
 
-    // MessageDataVerificationAddEthAddress.username_proof_body
-    function decode_15(uint64 pos, bytes memory buf, MessageDataVerificationAddEthAddress memory instance) internal pure returns (bool, uint64) {
+    // MessageDataVerificationAddAddress.username_proof_body
+    function decode_15(uint64 pos, bytes memory buf, MessageDataVerificationAddAddress memory instance) internal pure returns (bool, uint64) {
         bool success;
 
         bool v;
@@ -627,8 +627,8 @@ library MessageDataVerificationAddEthAddressCodec {
         return (true, pos);
     }
 
-    // MessageDataVerificationAddEthAddress.frame_action_body
-    function decode_16(uint64 pos, bytes memory buf, MessageDataVerificationAddEthAddress memory instance) internal pure returns (bool, uint64) {
+    // MessageDataVerificationAddAddress.frame_action_body
+    function decode_16(uint64 pos, bytes memory buf, MessageDataVerificationAddAddress memory instance) internal pure returns (bool, uint64) {
         bool success;
 
         bool v;
@@ -970,7 +970,7 @@ library MessageDataVerificationRemoveCodec {
         }
 
         // Check that value is within enum range
-        if (v < 0 || v > 13) {
+        if (v < 0 || v > 14) {
             return (false, pos);
         }
 

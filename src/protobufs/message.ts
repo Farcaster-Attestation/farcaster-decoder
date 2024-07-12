@@ -90,16 +90,18 @@ export enum MessageType {
   VERIFICATION_ADD_ETH_ADDRESS = 7,
   /** VERIFICATION_REMOVE - Remove a Verification */
   VERIFICATION_REMOVE = 8,
-  /** DEPRECATED_SIGNER_ADD - Add a new Ed25519 key pair that signs messages for a user */
-  DEPRECATED_SIGNER_ADD = 9,
-  /** DEPRECATED_SIGNER_REMOVE - Remove an Ed25519 key pair that signs messages for a user */
-  DEPRECATED_SIGNER_REMOVE = 10,
+  /** SIGNER_ADD - Add a new Ed25519 key pair that signs messages for a user */
+  SIGNER_ADD = 9,
+  /** SIGNER_REMOVE - Remove an Ed25519 key pair that signs messages for a user */
+  SIGNER_REMOVE = 10,
   /** USER_DATA_ADD - Add metadata about a user */
   USER_DATA_ADD = 11,
   /** USERNAME_PROOF - Add or replace a username proof */
   USERNAME_PROOF = 12,
   /** FRAME_ACTION - A Farcaster Frame action */
   FRAME_ACTION = 13,
+  /** LINK_COMPACT_STATE - Link Compaction State Message */
+  LINK_COMPACT_STATE = 14,
 }
 
 export function messageTypeFromJSON(object: any): MessageType {
@@ -132,11 +134,11 @@ export function messageTypeFromJSON(object: any): MessageType {
     case "MESSAGE_TYPE_VERIFICATION_REMOVE":
       return MessageType.VERIFICATION_REMOVE;
     case 9:
-    case "DEPRECATED_MESSAGE_TYPE_SIGNER_ADD":
-      return MessageType.DEPRECATED_SIGNER_ADD;
+    case "MESSAGE_TYPE_SIGNER_ADD":
+      return MessageType.SIGNER_ADD;
     case 10:
-    case "DEPRECATED_MESSAGE_TYPE_SIGNER_REMOVE":
-      return MessageType.DEPRECATED_SIGNER_REMOVE;
+    case "MESSAGE_TYPE_SIGNER_REMOVE":
+      return MessageType.SIGNER_REMOVE;
     case 11:
     case "MESSAGE_TYPE_USER_DATA_ADD":
       return MessageType.USER_DATA_ADD;
@@ -146,6 +148,9 @@ export function messageTypeFromJSON(object: any): MessageType {
     case 13:
     case "MESSAGE_TYPE_FRAME_ACTION":
       return MessageType.FRAME_ACTION;
+    case 14:
+    case "MESSAGE_TYPE_LINK_COMPACT_STATE":
+      return MessageType.LINK_COMPACT_STATE;
     default:
       throw new tsProtoGlobalThis.Error("Unrecognized enum value " + object + " for enum MessageType");
   }
@@ -171,16 +176,18 @@ export function messageTypeToJSON(object: MessageType): string {
       return "MESSAGE_TYPE_VERIFICATION_ADD_ETH_ADDRESS";
     case MessageType.VERIFICATION_REMOVE:
       return "MESSAGE_TYPE_VERIFICATION_REMOVE";
-    case MessageType.DEPRECATED_SIGNER_ADD:
-      return "DEPRECATED_MESSAGE_TYPE_SIGNER_ADD";
-    case MessageType.DEPRECATED_SIGNER_REMOVE:
-      return "DEPRECATED_MESSAGE_TYPE_SIGNER_REMOVE";
+    case MessageType.SIGNER_ADD:
+      return "MESSAGE_TYPE_SIGNER_ADD";
+    case MessageType.SIGNER_REMOVE:
+      return "MESSAGE_TYPE_SIGNER_REMOVE";
     case MessageType.USER_DATA_ADD:
       return "MESSAGE_TYPE_USER_DATA_ADD";
     case MessageType.USERNAME_PROOF:
       return "MESSAGE_TYPE_USERNAME_PROOF";
     case MessageType.FRAME_ACTION:
       return "MESSAGE_TYPE_FRAME_ACTION";
+    case MessageType.LINK_COMPACT_STATE:
+      return "MESSAGE_TYPE_LINK_COMPACT_STATE";
     default:
       throw new tsProtoGlobalThis.Error("Unrecognized enum value " + object + " for enum MessageType");
   }
@@ -240,7 +247,7 @@ export enum UserDataType {
   DISPLAY = 2,
   /** BIO - Bio for the user */
   BIO = 3,
-  EMPTY = 4,
+  UNKNOWN_4 = 4,
   /** URL - URL of the user */
   URL = 5,
   /** USERNAME - Preferred Name for the user */
@@ -262,8 +269,8 @@ export function userDataTypeFromJSON(object: any): UserDataType {
     case "USER_DATA_TYPE_BIO":
       return UserDataType.BIO;
     case 4:
-    case "EMPTY":
-      return UserDataType.EMPTY;
+    case "UNKNOWN_4":
+      return UserDataType.UNKNOWN_4;
     case 5:
     case "USER_DATA_TYPE_URL":
       return UserDataType.URL;
@@ -285,14 +292,44 @@ export function userDataTypeToJSON(object: UserDataType): string {
       return "USER_DATA_TYPE_DISPLAY";
     case UserDataType.BIO:
       return "USER_DATA_TYPE_BIO";
-    case UserDataType.EMPTY:
-      return "EMPTY";
+    case UserDataType.UNKNOWN_4:
+      return "UNKNOWN_4";
     case UserDataType.URL:
       return "USER_DATA_TYPE_URL";
     case UserDataType.USERNAME:
       return "USER_DATA_TYPE_USERNAME";
     default:
       throw new tsProtoGlobalThis.Error("Unrecognized enum value " + object + " for enum UserDataType");
+  }
+}
+
+/** Type of cast */
+export enum CastType {
+  CAST = 0,
+  LONG_CAST = 1,
+}
+
+export function castTypeFromJSON(object: any): CastType {
+  switch (object) {
+    case 0:
+    case "CAST":
+      return CastType.CAST;
+    case 1:
+    case "LONG_CAST":
+      return CastType.LONG_CAST;
+    default:
+      throw new tsProtoGlobalThis.Error("Unrecognized enum value " + object + " for enum CastType");
+  }
+}
+
+export function castTypeToJSON(object: CastType): string {
+  switch (object) {
+    case CastType.CAST:
+      return "CAST";
+    case CastType.LONG_CAST:
+      return "LONG_CAST";
+    default:
+      throw new tsProtoGlobalThis.Error("Unrecognized enum value " + object + " for enum CastType");
   }
 }
 
@@ -331,6 +368,36 @@ export function reactionTypeToJSON(object: ReactionType): string {
       return "REACTION_TYPE_RECAST";
     default:
       throw new tsProtoGlobalThis.Error("Unrecognized enum value " + object + " for enum ReactionType");
+  }
+}
+
+/** Type of Protocol to disambiguate verification addresses */
+export enum Protocol {
+  ETHEREUM = 0,
+  SOLANA = 1,
+}
+
+export function protocolFromJSON(object: any): Protocol {
+  switch (object) {
+    case 0:
+    case "PROTOCOL_ETHEREUM":
+      return Protocol.ETHEREUM;
+    case 1:
+    case "PROTOCOL_SOLANA":
+      return Protocol.SOLANA;
+    default:
+      throw new tsProtoGlobalThis.Error("Unrecognized enum value " + object + " for enum Protocol");
+  }
+}
+
+export function protocolToJSON(object: Protocol): string {
+  switch (object) {
+    case Protocol.ETHEREUM:
+      return "PROTOCOL_ETHEREUM";
+    case Protocol.SOLANA:
+      return "PROTOCOL_SOLANA";
+    default:
+      throw new tsProtoGlobalThis.Error("Unrecognized enum value " + object + " for enum Protocol");
   }
 }
 
@@ -377,8 +444,8 @@ export interface MessageData {
   emptyCastRemoveBody: boolean;
   reactionBody: ReactionBody | undefined;
   empty: boolean;
-  verificationAddEthAddressBody:
-    | VerificationAddEthAddressBody
+  verificationAddAddressBody:
+    | VerificationAddAddressBody
     | undefined;
   /** VerificationRemoveBody verification_remove_body = 10; */
   emptyVerificationRemoveBody: boolean;
@@ -424,6 +491,8 @@ export interface CastAddBody {
   embeds: Embed[];
   /** Parent URL */
   parentUrl: string;
+  /** Type of cast */
+  type: CastType;
 }
 
 /** Removes an existing Cast */
@@ -452,24 +521,29 @@ export interface ReactionBody {
   targetUrl: string;
 }
 
-/** Adds a Verification of ownership of an Ethereum Address */
-export interface VerificationAddEthAddressBody {
-  /** Ethereum address being verified */
+/** Adds a Verification of ownership of an Address based on Protocol */
+export interface VerificationAddAddressBody {
+  /** Address being verified for a given Protocol */
   address: Uint8Array;
-  /** Signature produced by the user's Ethereum address */
-  ethSignature: Uint8Array;
+  /** Signature produced by the user's address for a given Protocol */
+  claimSignature: Uint8Array;
   /** Hash of the latest Ethereum block when the signature was produced */
   blockHash: Uint8Array;
   /** Type of verification. 0 = EOA, 1 = contract */
   verificationType: number;
   /** 0 for EOA verifications, 1 or 10 for contract verifications */
   chainId: number;
+  unknown6: boolean;
+  /** Protocol of the Verification */
+  protocol: Protocol;
 }
 
-/** Removes a Verification of any type */
+/** Removes a Verification of a given protocol */
 export interface VerificationRemoveBody {
   /** Address of the Verification to remove */
   address: Uint8Array;
+  /** Protocol of the Verification to remove */
+  protocol: Protocol;
 }
 
 /** Adds or removes a Link */
@@ -480,6 +554,13 @@ export interface LinkBody {
   displayTimestamp: number;
   /** The fid the link relates to */
   targetFid: number;
+}
+
+/** A Compaction message for the Link Store */
+export interface LinkCompactStateBody {
+  /** Type of link, <= 8 characters */
+  type: string;
+  targetFids: number[];
 }
 
 /** A Farcaster Frame action */
@@ -494,6 +575,12 @@ export interface FrameActionBody {
     | undefined;
   /** Text input from the user, if present */
   inputText: Uint8Array;
+  /** Serialized frame state value */
+  state: Uint8Array;
+  /** Chain-specific transaction ID for tx actions */
+  transactionId: Uint8Array;
+  /** Chain-specific address for tx actions */
+  address: Uint8Array;
 }
 
 function createBaseMessage(): Message {
@@ -656,7 +743,7 @@ function createBaseMessageData(): MessageData {
     emptyCastRemoveBody: false,
     reactionBody: undefined,
     empty: false,
-    verificationAddEthAddressBody: undefined,
+    verificationAddAddressBody: undefined,
     emptyVerificationRemoveBody: false,
     deprecatedSignerAddBody: false,
     userDataBody: false,
@@ -693,8 +780,8 @@ export const MessageData = {
     if (message.empty === true) {
       writer.uint32(64).bool(message.empty);
     }
-    if (message.verificationAddEthAddressBody !== undefined) {
-      VerificationAddEthAddressBody.encode(message.verificationAddEthAddressBody, writer.uint32(74).fork()).ldelim();
+    if (message.verificationAddAddressBody !== undefined) {
+      VerificationAddAddressBody.encode(message.verificationAddAddressBody, writer.uint32(74).fork()).ldelim();
     }
     if (message.emptyVerificationRemoveBody === true) {
       writer.uint32(80).bool(message.emptyVerificationRemoveBody);
@@ -788,7 +875,7 @@ export const MessageData = {
             break;
           }
 
-          message.verificationAddEthAddressBody = VerificationAddEthAddressBody.decode(reader, reader.uint32());
+          message.verificationAddAddressBody = VerificationAddAddressBody.decode(reader, reader.uint32());
           continue;
         case 10:
           if (tag != 80) {
@@ -858,8 +945,8 @@ export const MessageData = {
       emptyCastRemoveBody: isSet(object.emptyCastRemoveBody) ? Boolean(object.emptyCastRemoveBody) : false,
       reactionBody: isSet(object.reactionBody) ? ReactionBody.fromJSON(object.reactionBody) : undefined,
       empty: isSet(object.empty) ? Boolean(object.empty) : false,
-      verificationAddEthAddressBody: isSet(object.verificationAddEthAddressBody)
-        ? VerificationAddEthAddressBody.fromJSON(object.verificationAddEthAddressBody)
+      verificationAddAddressBody: isSet(object.verificationAddAddressBody)
+        ? VerificationAddAddressBody.fromJSON(object.verificationAddAddressBody)
         : undefined,
       emptyVerificationRemoveBody: isSet(object.emptyVerificationRemoveBody)
         ? Boolean(object.emptyVerificationRemoveBody)
@@ -887,9 +974,9 @@ export const MessageData = {
     message.reactionBody !== undefined &&
       (obj.reactionBody = message.reactionBody ? ReactionBody.toJSON(message.reactionBody) : undefined);
     message.empty !== undefined && (obj.empty = message.empty);
-    message.verificationAddEthAddressBody !== undefined &&
-      (obj.verificationAddEthAddressBody = message.verificationAddEthAddressBody
-        ? VerificationAddEthAddressBody.toJSON(message.verificationAddEthAddressBody)
+    message.verificationAddAddressBody !== undefined &&
+      (obj.verificationAddAddressBody = message.verificationAddAddressBody
+        ? VerificationAddAddressBody.toJSON(message.verificationAddAddressBody)
         : undefined);
     message.emptyVerificationRemoveBody !== undefined &&
       (obj.emptyVerificationRemoveBody = message.emptyVerificationRemoveBody);
@@ -922,9 +1009,9 @@ export const MessageData = {
       ? ReactionBody.fromPartial(object.reactionBody)
       : undefined;
     message.empty = object.empty ?? false;
-    message.verificationAddEthAddressBody =
-      (object.verificationAddEthAddressBody !== undefined && object.verificationAddEthAddressBody !== null)
-        ? VerificationAddEthAddressBody.fromPartial(object.verificationAddEthAddressBody)
+    message.verificationAddAddressBody =
+      (object.verificationAddAddressBody !== undefined && object.verificationAddAddressBody !== null)
+        ? VerificationAddAddressBody.fromPartial(object.verificationAddAddressBody)
         : undefined;
     message.emptyVerificationRemoveBody = object.emptyVerificationRemoveBody ?? false;
     message.deprecatedSignerAddBody = object.deprecatedSignerAddBody ?? false;
@@ -1094,6 +1181,7 @@ function createBaseCastAddBody(): CastAddBody {
     mentionsPositions: [],
     embeds: [],
     parentUrl: "",
+    type: 0,
   };
 }
 
@@ -1123,6 +1211,9 @@ export const CastAddBody = {
     }
     if (message.parentUrl !== "") {
       writer.uint32(58).string(message.parentUrl);
+    }
+    if (message.type !== 0) {
+      writer.uint32(64).int32(message.type);
     }
     return writer;
   },
@@ -1201,6 +1292,13 @@ export const CastAddBody = {
 
           message.parentUrl = reader.string();
           continue;
+        case 8:
+          if (tag != 64) {
+            break;
+          }
+
+          message.type = reader.int32() as any;
+          continue;
       }
       if ((tag & 7) == 4 || tag == 0) {
         break;
@@ -1221,6 +1319,7 @@ export const CastAddBody = {
         : [],
       embeds: Array.isArray(object?.embeds) ? object.embeds.map((e: any) => Embed.fromJSON(e)) : [],
       parentUrl: isSet(object.parentUrl) ? String(object.parentUrl) : "",
+      type: isSet(object.type) ? castTypeFromJSON(object.type) : 0,
     };
   },
 
@@ -1246,6 +1345,7 @@ export const CastAddBody = {
       obj.embeds = [];
     }
     message.parentUrl !== undefined && (obj.parentUrl = message.parentUrl);
+    message.type !== undefined && (obj.type = castTypeToJSON(message.type));
     return obj;
   },
 
@@ -1264,6 +1364,7 @@ export const CastAddBody = {
     message.mentionsPositions = object.mentionsPositions?.map((e) => e) || [];
     message.embeds = object.embeds?.map((e) => Embed.fromPartial(e)) || [];
     message.parentUrl = object.parentUrl ?? "";
+    message.type = object.type ?? 0;
     return message;
   },
 };
@@ -1484,23 +1585,25 @@ export const ReactionBody = {
   },
 };
 
-function createBaseVerificationAddEthAddressBody(): VerificationAddEthAddressBody {
+function createBaseVerificationAddAddressBody(): VerificationAddAddressBody {
   return {
     address: new Uint8Array(),
-    ethSignature: new Uint8Array(),
+    claimSignature: new Uint8Array(),
     blockHash: new Uint8Array(),
     verificationType: 0,
     chainId: 0,
+    unknown6: false,
+    protocol: 0,
   };
 }
 
-export const VerificationAddEthAddressBody = {
-  encode(message: VerificationAddEthAddressBody, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+export const VerificationAddAddressBody = {
+  encode(message: VerificationAddAddressBody, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.address.length !== 0) {
       writer.uint32(10).bytes(message.address);
     }
-    if (message.ethSignature.length !== 0) {
-      writer.uint32(18).bytes(message.ethSignature);
+    if (message.claimSignature.length !== 0) {
+      writer.uint32(18).bytes(message.claimSignature);
     }
     if (message.blockHash.length !== 0) {
       writer.uint32(26).bytes(message.blockHash);
@@ -1511,13 +1614,19 @@ export const VerificationAddEthAddressBody = {
     if (message.chainId !== 0) {
       writer.uint32(40).uint32(message.chainId);
     }
+    if (message.unknown6 === true) {
+      writer.uint32(48).bool(message.unknown6);
+    }
+    if (message.protocol !== 0) {
+      writer.uint32(56).int32(message.protocol);
+    }
     return writer;
   },
 
-  decode(input: _m0.Reader | Uint8Array, length?: number): VerificationAddEthAddressBody {
+  decode(input: _m0.Reader | Uint8Array, length?: number): VerificationAddAddressBody {
     const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBaseVerificationAddEthAddressBody();
+    const message = createBaseVerificationAddAddressBody();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -1533,7 +1642,7 @@ export const VerificationAddEthAddressBody = {
             break;
           }
 
-          message.ethSignature = reader.bytes();
+          message.claimSignature = reader.bytes();
           continue;
         case 3:
           if (tag != 26) {
@@ -1556,6 +1665,20 @@ export const VerificationAddEthAddressBody = {
 
           message.chainId = reader.uint32();
           continue;
+        case 6:
+          if (tag != 48) {
+            break;
+          }
+
+          message.unknown6 = reader.bool();
+          continue;
+        case 7:
+          if (tag != 56) {
+            break;
+          }
+
+          message.protocol = reader.int32() as any;
+          continue;
       }
       if ((tag & 7) == 4 || tag == 0) {
         break;
@@ -1565,56 +1688,63 @@ export const VerificationAddEthAddressBody = {
     return message;
   },
 
-  fromJSON(object: any): VerificationAddEthAddressBody {
+  fromJSON(object: any): VerificationAddAddressBody {
     return {
       address: isSet(object.address) ? bytesFromBase64(object.address) : new Uint8Array(),
-      ethSignature: isSet(object.ethSignature) ? bytesFromBase64(object.ethSignature) : new Uint8Array(),
+      claimSignature: isSet(object.claimSignature) ? bytesFromBase64(object.claimSignature) : new Uint8Array(),
       blockHash: isSet(object.blockHash) ? bytesFromBase64(object.blockHash) : new Uint8Array(),
       verificationType: isSet(object.verificationType) ? Number(object.verificationType) : 0,
       chainId: isSet(object.chainId) ? Number(object.chainId) : 0,
+      unknown6: isSet(object.unknown6) ? Boolean(object.unknown6) : false,
+      protocol: isSet(object.protocol) ? protocolFromJSON(object.protocol) : 0,
     };
   },
 
-  toJSON(message: VerificationAddEthAddressBody): unknown {
+  toJSON(message: VerificationAddAddressBody): unknown {
     const obj: any = {};
     message.address !== undefined &&
       (obj.address = base64FromBytes(message.address !== undefined ? message.address : new Uint8Array()));
-    message.ethSignature !== undefined &&
-      (obj.ethSignature = base64FromBytes(
-        message.ethSignature !== undefined ? message.ethSignature : new Uint8Array(),
+    message.claimSignature !== undefined &&
+      (obj.claimSignature = base64FromBytes(
+        message.claimSignature !== undefined ? message.claimSignature : new Uint8Array(),
       ));
     message.blockHash !== undefined &&
       (obj.blockHash = base64FromBytes(message.blockHash !== undefined ? message.blockHash : new Uint8Array()));
     message.verificationType !== undefined && (obj.verificationType = Math.round(message.verificationType));
     message.chainId !== undefined && (obj.chainId = Math.round(message.chainId));
+    message.unknown6 !== undefined && (obj.unknown6 = message.unknown6);
+    message.protocol !== undefined && (obj.protocol = protocolToJSON(message.protocol));
     return obj;
   },
 
-  create<I extends Exact<DeepPartial<VerificationAddEthAddressBody>, I>>(base?: I): VerificationAddEthAddressBody {
-    return VerificationAddEthAddressBody.fromPartial(base ?? {});
+  create<I extends Exact<DeepPartial<VerificationAddAddressBody>, I>>(base?: I): VerificationAddAddressBody {
+    return VerificationAddAddressBody.fromPartial(base ?? {});
   },
 
-  fromPartial<I extends Exact<DeepPartial<VerificationAddEthAddressBody>, I>>(
-    object: I,
-  ): VerificationAddEthAddressBody {
-    const message = createBaseVerificationAddEthAddressBody();
+  fromPartial<I extends Exact<DeepPartial<VerificationAddAddressBody>, I>>(object: I): VerificationAddAddressBody {
+    const message = createBaseVerificationAddAddressBody();
     message.address = object.address ?? new Uint8Array();
-    message.ethSignature = object.ethSignature ?? new Uint8Array();
+    message.claimSignature = object.claimSignature ?? new Uint8Array();
     message.blockHash = object.blockHash ?? new Uint8Array();
     message.verificationType = object.verificationType ?? 0;
     message.chainId = object.chainId ?? 0;
+    message.unknown6 = object.unknown6 ?? false;
+    message.protocol = object.protocol ?? 0;
     return message;
   },
 };
 
 function createBaseVerificationRemoveBody(): VerificationRemoveBody {
-  return { address: new Uint8Array() };
+  return { address: new Uint8Array(), protocol: 0 };
 }
 
 export const VerificationRemoveBody = {
   encode(message: VerificationRemoveBody, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.address.length !== 0) {
       writer.uint32(10).bytes(message.address);
+    }
+    if (message.protocol !== 0) {
+      writer.uint32(16).int32(message.protocol);
     }
     return writer;
   },
@@ -1633,6 +1763,13 @@ export const VerificationRemoveBody = {
 
           message.address = reader.bytes();
           continue;
+        case 2:
+          if (tag != 16) {
+            break;
+          }
+
+          message.protocol = reader.int32() as any;
+          continue;
       }
       if ((tag & 7) == 4 || tag == 0) {
         break;
@@ -1643,13 +1780,17 @@ export const VerificationRemoveBody = {
   },
 
   fromJSON(object: any): VerificationRemoveBody {
-    return { address: isSet(object.address) ? bytesFromBase64(object.address) : new Uint8Array() };
+    return {
+      address: isSet(object.address) ? bytesFromBase64(object.address) : new Uint8Array(),
+      protocol: isSet(object.protocol) ? protocolFromJSON(object.protocol) : 0,
+    };
   },
 
   toJSON(message: VerificationRemoveBody): unknown {
     const obj: any = {};
     message.address !== undefined &&
       (obj.address = base64FromBytes(message.address !== undefined ? message.address : new Uint8Array()));
+    message.protocol !== undefined && (obj.protocol = protocolToJSON(message.protocol));
     return obj;
   },
 
@@ -1660,6 +1801,7 @@ export const VerificationRemoveBody = {
   fromPartial<I extends Exact<DeepPartial<VerificationRemoveBody>, I>>(object: I): VerificationRemoveBody {
     const message = createBaseVerificationRemoveBody();
     message.address = object.address ?? new Uint8Array();
+    message.protocol = object.protocol ?? 0;
     return message;
   },
 };
@@ -1748,8 +1890,102 @@ export const LinkBody = {
   },
 };
 
+function createBaseLinkCompactStateBody(): LinkCompactStateBody {
+  return { type: "", targetFids: [] };
+}
+
+export const LinkCompactStateBody = {
+  encode(message: LinkCompactStateBody, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    if (message.type !== "") {
+      writer.uint32(10).string(message.type);
+    }
+    writer.uint32(18).fork();
+    for (const v of message.targetFids) {
+      writer.uint64(v);
+    }
+    writer.ldelim();
+    return writer;
+  },
+
+  decode(input: _m0.Reader | Uint8Array, length?: number): LinkCompactStateBody {
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseLinkCompactStateBody();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          if (tag != 10) {
+            break;
+          }
+
+          message.type = reader.string();
+          continue;
+        case 2:
+          if (tag == 16) {
+            message.targetFids.push(longToNumber(reader.uint64() as Long));
+            continue;
+          }
+
+          if (tag == 18) {
+            const end2 = reader.uint32() + reader.pos;
+            while (reader.pos < end2) {
+              message.targetFids.push(longToNumber(reader.uint64() as Long));
+            }
+
+            continue;
+          }
+
+          break;
+      }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
+    }
+    return message;
+  },
+
+  fromJSON(object: any): LinkCompactStateBody {
+    return {
+      type: isSet(object.type) ? String(object.type) : "",
+      targetFids: Array.isArray(object?.targetFids) ? object.targetFids.map((e: any) => Number(e)) : [],
+    };
+  },
+
+  toJSON(message: LinkCompactStateBody): unknown {
+    const obj: any = {};
+    message.type !== undefined && (obj.type = message.type);
+    if (message.targetFids) {
+      obj.targetFids = message.targetFids.map((e) => Math.round(e));
+    } else {
+      obj.targetFids = [];
+    }
+    return obj;
+  },
+
+  create<I extends Exact<DeepPartial<LinkCompactStateBody>, I>>(base?: I): LinkCompactStateBody {
+    return LinkCompactStateBody.fromPartial(base ?? {});
+  },
+
+  fromPartial<I extends Exact<DeepPartial<LinkCompactStateBody>, I>>(object: I): LinkCompactStateBody {
+    const message = createBaseLinkCompactStateBody();
+    message.type = object.type ?? "";
+    message.targetFids = object.targetFids?.map((e) => e) || [];
+    return message;
+  },
+};
+
 function createBaseFrameActionBody(): FrameActionBody {
-  return { url: new Uint8Array(), buttonIndex: 0, castId: undefined, inputText: new Uint8Array() };
+  return {
+    url: new Uint8Array(),
+    buttonIndex: 0,
+    castId: undefined,
+    inputText: new Uint8Array(),
+    state: new Uint8Array(),
+    transactionId: new Uint8Array(),
+    address: new Uint8Array(),
+  };
 }
 
 export const FrameActionBody = {
@@ -1765,6 +2001,15 @@ export const FrameActionBody = {
     }
     if (message.inputText.length !== 0) {
       writer.uint32(34).bytes(message.inputText);
+    }
+    if (message.state.length !== 0) {
+      writer.uint32(42).bytes(message.state);
+    }
+    if (message.transactionId.length !== 0) {
+      writer.uint32(50).bytes(message.transactionId);
+    }
+    if (message.address.length !== 0) {
+      writer.uint32(58).bytes(message.address);
     }
     return writer;
   },
@@ -1804,6 +2049,27 @@ export const FrameActionBody = {
 
           message.inputText = reader.bytes();
           continue;
+        case 5:
+          if (tag != 42) {
+            break;
+          }
+
+          message.state = reader.bytes();
+          continue;
+        case 6:
+          if (tag != 50) {
+            break;
+          }
+
+          message.transactionId = reader.bytes();
+          continue;
+        case 7:
+          if (tag != 58) {
+            break;
+          }
+
+          message.address = reader.bytes();
+          continue;
       }
       if ((tag & 7) == 4 || tag == 0) {
         break;
@@ -1819,6 +2085,9 @@ export const FrameActionBody = {
       buttonIndex: isSet(object.buttonIndex) ? Number(object.buttonIndex) : 0,
       castId: isSet(object.castId) ? CastId.fromJSON(object.castId) : undefined,
       inputText: isSet(object.inputText) ? bytesFromBase64(object.inputText) : new Uint8Array(),
+      state: isSet(object.state) ? bytesFromBase64(object.state) : new Uint8Array(),
+      transactionId: isSet(object.transactionId) ? bytesFromBase64(object.transactionId) : new Uint8Array(),
+      address: isSet(object.address) ? bytesFromBase64(object.address) : new Uint8Array(),
     };
   },
 
@@ -1830,6 +2099,14 @@ export const FrameActionBody = {
     message.castId !== undefined && (obj.castId = message.castId ? CastId.toJSON(message.castId) : undefined);
     message.inputText !== undefined &&
       (obj.inputText = base64FromBytes(message.inputText !== undefined ? message.inputText : new Uint8Array()));
+    message.state !== undefined &&
+      (obj.state = base64FromBytes(message.state !== undefined ? message.state : new Uint8Array()));
+    message.transactionId !== undefined &&
+      (obj.transactionId = base64FromBytes(
+        message.transactionId !== undefined ? message.transactionId : new Uint8Array(),
+      ));
+    message.address !== undefined &&
+      (obj.address = base64FromBytes(message.address !== undefined ? message.address : new Uint8Array()));
     return obj;
   },
 
@@ -1845,6 +2122,9 @@ export const FrameActionBody = {
       ? CastId.fromPartial(object.castId)
       : undefined;
     message.inputText = object.inputText ?? new Uint8Array();
+    message.state = object.state ?? new Uint8Array();
+    message.transactionId = object.transactionId ?? new Uint8Array();
+    message.address = object.address ?? new Uint8Array();
     return message;
   },
 };

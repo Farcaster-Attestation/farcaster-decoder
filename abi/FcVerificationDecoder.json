@@ -17,7 +17,7 @@
         "type": "bytes"
       }
     ],
-    "name": "decodeVerificationAddEthAddress",
+    "name": "decodeVerificationAddAddress",
     "outputs": [
       {
         "components": [
@@ -70,7 +70,7 @@
               },
               {
                 "internalType": "bytes",
-                "name": "eth_signature",
+                "name": "claim_signature",
                 "type": "bytes"
               },
               {
@@ -87,9 +87,19 @@
                 "internalType": "uint32",
                 "name": "chain_id",
                 "type": "uint32"
+              },
+              {
+                "internalType": "bool",
+                "name": "unknown_6",
+                "type": "bool"
+              },
+              {
+                "internalType": "enum Protocol",
+                "name": "protocol",
+                "type": "Protocol"
               }
             ],
-            "internalType": "struct VerificationAddEthAddressBody",
+            "internalType": "struct VerificationAddAddressBody",
             "name": "verification_add_eth_address_body",
             "type": "tuple"
           },
@@ -129,7 +139,7 @@
             "type": "bool"
           }
         ],
-        "internalType": "struct MessageDataVerificationAddEthAddress",
+        "internalType": "struct MessageDataVerificationAddAddress",
         "name": "messageData",
         "type": "tuple"
       }
@@ -200,6 +210,11 @@
                 "internalType": "bytes",
                 "name": "address_",
                 "type": "bytes"
+              },
+              {
+                "internalType": "enum Protocol",
+                "name": "protocol",
+                "type": "Protocol"
               }
             ],
             "internalType": "struct VerificationRemoveBody",

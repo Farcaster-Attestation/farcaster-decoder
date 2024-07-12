@@ -8,7 +8,7 @@ import {
   MessageType,
   messageTypeFromJSON,
   messageTypeToJSON,
-  VerificationAddEthAddressBody,
+  VerificationAddAddressBody,
   VerificationRemoveBody,
 } from "./message";
 
@@ -16,7 +16,7 @@ import {
  * A MessageData object contains properties common to all messages and wraps a body object which
  * contains properties specific to the MessageType.
  */
-export interface MessageDataVerificationAddEthAddress {
+export interface MessageDataVerificationAddAddress {
   /** Type of message contained in the body */
   type: MessageType;
   /** Farcaster ID of the user producing the message */
@@ -29,7 +29,7 @@ export interface MessageDataVerificationAddEthAddress {
   castRemoveBody: boolean;
   reactionBody: boolean;
   empty: boolean;
-  verificationAddEthAddressBody: VerificationAddEthAddressBody | undefined;
+  verificationAddEthAddressBody: VerificationAddAddressBody | undefined;
   verificationRemoveBody: boolean;
   deprecatedSignerAddBody: boolean;
   userDataBody: boolean;
@@ -66,7 +66,7 @@ export interface MessageDataVerificationRemove {
   frameActionBody: boolean;
 }
 
-function createBaseMessageDataVerificationAddEthAddress(): MessageDataVerificationAddEthAddress {
+function createBaseMessageDataVerificationAddAddress(): MessageDataVerificationAddAddress {
   return {
     type: 0,
     fid: 0,
@@ -87,8 +87,8 @@ function createBaseMessageDataVerificationAddEthAddress(): MessageDataVerificati
   };
 }
 
-export const MessageDataVerificationAddEthAddress = {
-  encode(message: MessageDataVerificationAddEthAddress, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+export const MessageDataVerificationAddAddress = {
+  encode(message: MessageDataVerificationAddAddress, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.type !== 0) {
       writer.uint32(8).int32(message.type);
     }
@@ -114,7 +114,7 @@ export const MessageDataVerificationAddEthAddress = {
       writer.uint32(64).bool(message.empty);
     }
     if (message.verificationAddEthAddressBody !== undefined) {
-      VerificationAddEthAddressBody.encode(message.verificationAddEthAddressBody, writer.uint32(74).fork()).ldelim();
+      VerificationAddAddressBody.encode(message.verificationAddEthAddressBody, writer.uint32(74).fork()).ldelim();
     }
     if (message.verificationRemoveBody === true) {
       writer.uint32(80).bool(message.verificationRemoveBody);
@@ -140,10 +140,10 @@ export const MessageDataVerificationAddEthAddress = {
     return writer;
   },
 
-  decode(input: _m0.Reader | Uint8Array, length?: number): MessageDataVerificationAddEthAddress {
+  decode(input: _m0.Reader | Uint8Array, length?: number): MessageDataVerificationAddAddress {
     const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBaseMessageDataVerificationAddEthAddress();
+    const message = createBaseMessageDataVerificationAddAddress();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -208,7 +208,7 @@ export const MessageDataVerificationAddEthAddress = {
             break;
           }
 
-          message.verificationAddEthAddressBody = VerificationAddEthAddressBody.decode(reader, reader.uint32());
+          message.verificationAddEthAddressBody = VerificationAddAddressBody.decode(reader, reader.uint32());
           continue;
         case 10:
           if (tag != 80) {
@@ -268,7 +268,7 @@ export const MessageDataVerificationAddEthAddress = {
     return message;
   },
 
-  fromJSON(object: any): MessageDataVerificationAddEthAddress {
+  fromJSON(object: any): MessageDataVerificationAddAddress {
     return {
       type: isSet(object.type) ? messageTypeFromJSON(object.type) : 0,
       fid: isSet(object.fid) ? Number(object.fid) : 0,
@@ -279,7 +279,7 @@ export const MessageDataVerificationAddEthAddress = {
       reactionBody: isSet(object.reactionBody) ? Boolean(object.reactionBody) : false,
       empty: isSet(object.empty) ? Boolean(object.empty) : false,
       verificationAddEthAddressBody: isSet(object.verificationAddEthAddressBody)
-        ? VerificationAddEthAddressBody.fromJSON(object.verificationAddEthAddressBody)
+        ? VerificationAddAddressBody.fromJSON(object.verificationAddEthAddressBody)
         : undefined,
       verificationRemoveBody: isSet(object.verificationRemoveBody) ? Boolean(object.verificationRemoveBody) : false,
       deprecatedSignerAddBody: isSet(object.deprecatedSignerAddBody) ? Boolean(object.deprecatedSignerAddBody) : false,
@@ -293,7 +293,7 @@ export const MessageDataVerificationAddEthAddress = {
     };
   },
 
-  toJSON(message: MessageDataVerificationAddEthAddress): unknown {
+  toJSON(message: MessageDataVerificationAddAddress): unknown {
     const obj: any = {};
     message.type !== undefined && (obj.type = messageTypeToJSON(message.type));
     message.fid !== undefined && (obj.fid = Math.round(message.fid));
@@ -305,7 +305,7 @@ export const MessageDataVerificationAddEthAddress = {
     message.empty !== undefined && (obj.empty = message.empty);
     message.verificationAddEthAddressBody !== undefined &&
       (obj.verificationAddEthAddressBody = message.verificationAddEthAddressBody
-        ? VerificationAddEthAddressBody.toJSON(message.verificationAddEthAddressBody)
+        ? VerificationAddAddressBody.toJSON(message.verificationAddEthAddressBody)
         : undefined);
     message.verificationRemoveBody !== undefined && (obj.verificationRemoveBody = message.verificationRemoveBody);
     message.deprecatedSignerAddBody !== undefined && (obj.deprecatedSignerAddBody = message.deprecatedSignerAddBody);
@@ -318,16 +318,16 @@ export const MessageDataVerificationAddEthAddress = {
     return obj;
   },
 
-  create<I extends Exact<DeepPartial<MessageDataVerificationAddEthAddress>, I>>(
+  create<I extends Exact<DeepPartial<MessageDataVerificationAddAddress>, I>>(
     base?: I,
-  ): MessageDataVerificationAddEthAddress {
-    return MessageDataVerificationAddEthAddress.fromPartial(base ?? {});
+  ): MessageDataVerificationAddAddress {
+    return MessageDataVerificationAddAddress.fromPartial(base ?? {});
   },
 
-  fromPartial<I extends Exact<DeepPartial<MessageDataVerificationAddEthAddress>, I>>(
+  fromPartial<I extends Exact<DeepPartial<MessageDataVerificationAddAddress>, I>>(
     object: I,
-  ): MessageDataVerificationAddEthAddress {
-    const message = createBaseMessageDataVerificationAddEthAddress();
+  ): MessageDataVerificationAddAddress {
+    const message = createBaseMessageDataVerificationAddAddress();
     message.type = object.type ?? 0;
     message.fid = object.fid ?? 0;
     message.timestamp = object.timestamp ?? 0;
@@ -338,7 +338,7 @@ export const MessageDataVerificationAddEthAddress = {
     message.empty = object.empty ?? false;
     message.verificationAddEthAddressBody =
       (object.verificationAddEthAddressBody !== undefined && object.verificationAddEthAddressBody !== null)
-        ? VerificationAddEthAddressBody.fromPartial(object.verificationAddEthAddressBody)
+        ? VerificationAddAddressBody.fromPartial(object.verificationAddEthAddressBody)
         : undefined;
     message.verificationRemoveBody = object.verificationRemoveBody ?? false;
     message.deprecatedSignerAddBody = object.deprecatedSignerAddBody ?? false;

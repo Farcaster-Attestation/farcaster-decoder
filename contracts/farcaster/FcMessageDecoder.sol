@@ -3,20 +3,20 @@ pragma solidity ^0.8.9;
 
 import "../protobufs/verification.proto.sol";
 
-library MessageDataVerificationDecoder {
+library FcVerificationDecoder {
     error InvalidEncoding();
     error InvalidMessageType();
 
-    function decodeVerificationAddEthAddress(
+    function decodeVerificationAddAddress(
         bytes memory message
     )
         public
         pure
-        returns (MessageDataVerificationAddEthAddress memory messageData)
+        returns (MessageDataVerificationAddAddress memory messageData)
     {
         bool success;
 
-        (success, , messageData) = MessageDataVerificationAddEthAddressCodec
+        (success, , messageData) = MessageDataVerificationAddAddressCodec
             .decode(0, message, uint64(message.length));
 
         if (!success) {

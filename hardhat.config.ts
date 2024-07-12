@@ -11,7 +11,7 @@ const config: HardhatUserConfig = {
   },
   networks: {
     hardhat: {
-      // allowUnlimitedContractSize: true,
+      allowUnlimitedContractSize: true,
     }
   },
   abiExporter: {

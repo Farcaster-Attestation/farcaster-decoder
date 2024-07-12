@@ -1,0 +1,79 @@
+[
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "fid",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "address_",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "bytes",
+        "name": "eth_signature",
+        "type": "bytes"
+      },
+      {
+        "indexed": false,
+        "internalType": "bytes",
+        "name": "block_hash",
+        "type": "bytes"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint32",
+        "name": "verification_type",
+        "type": "uint32"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint32",
+        "name": "chain_id",
+        "type": "uint32"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "protocol",
+        "type": "uint256"
+      }
+    ],
+    "name": "VerificationAddEthAddressBodyVerified",
+    "type": "event"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "bytes32",
+        "name": "public_key",
+        "type": "bytes32"
+      },
+      {
+        "internalType": "bytes32",
+        "name": "signature_r",
+        "type": "bytes32"
+      },
+      {
+        "internalType": "bytes32",
+        "name": "signature_s",
+        "type": "bytes32"
+      },
+      {
+        "internalType": "bytes",
+        "name": "message",
+        "type": "bytes"
+      }
+    ],
+    "name": "verifyVerificationAddEthAddress",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  }
+]
