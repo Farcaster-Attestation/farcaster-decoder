@@ -5,13 +5,21 @@ import "hardhat-contract-sizer";
 import "hardhat-abi-exporter";
 
 const config: HardhatUserConfig = {
-  solidity: "0.8.19",
+  solidity: {
+    version: "0.8.24",
+    settings: {
+      optimizer: {
+        enabled: true,
+        runs: 200,
+      },
+    },
+  },
   gasReporter: {
     enabled: true,
   },
   networks: {
     hardhat: {
-      allowUnlimitedContractSize: true,
+      // allowUnlimitedContractSize: true,
     }
   },
   abiExporter: {
