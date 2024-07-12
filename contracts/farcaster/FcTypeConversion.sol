@@ -10,4 +10,11 @@ library FcTypeConversion {
             a := div(mload(add(b, 32)), exp(256, 12))
         }
     }
+
+    function bytesToBytes32(bytes memory source) public pure returns (bytes32 result) {
+        require(source.length == 32, "Source bytes must be exactly 32 bytes long");
+        assembly {
+            result := mload(add(source, 32))
+        }
+    }
 }

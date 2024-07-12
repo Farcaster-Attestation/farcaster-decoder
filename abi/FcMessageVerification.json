@@ -7,9 +7,128 @@
   {
     "inputs": [
       {
-        "internalType": "address",
-        "name": "ethAddress",
-        "type": "address"
+        "components": [
+          {
+            "internalType": "enum MessageType",
+            "name": "type_",
+            "type": "MessageType"
+          },
+          {
+            "internalType": "uint64",
+            "name": "fid",
+            "type": "uint64"
+          },
+          {
+            "internalType": "uint32",
+            "name": "timestamp",
+            "type": "uint32"
+          },
+          {
+            "internalType": "enum FarcasterNetwork",
+            "name": "network",
+            "type": "FarcasterNetwork"
+          },
+          {
+            "internalType": "bool",
+            "name": "cast_add_body",
+            "type": "bool"
+          },
+          {
+            "internalType": "bool",
+            "name": "cast_remove_body",
+            "type": "bool"
+          },
+          {
+            "internalType": "bool",
+            "name": "reaction_body",
+            "type": "bool"
+          },
+          {
+            "internalType": "bool",
+            "name": "empty",
+            "type": "bool"
+          },
+          {
+            "components": [
+              {
+                "internalType": "bytes",
+                "name": "address_",
+                "type": "bytes"
+              },
+              {
+                "internalType": "bytes",
+                "name": "claim_signature",
+                "type": "bytes"
+              },
+              {
+                "internalType": "bytes",
+                "name": "block_hash",
+                "type": "bytes"
+              },
+              {
+                "internalType": "uint32",
+                "name": "verification_type",
+                "type": "uint32"
+              },
+              {
+                "internalType": "uint32",
+                "name": "chain_id",
+                "type": "uint32"
+              },
+              {
+                "internalType": "bool",
+                "name": "unknown_6",
+                "type": "bool"
+              },
+              {
+                "internalType": "enum Protocol",
+                "name": "protocol",
+                "type": "Protocol"
+              }
+            ],
+            "internalType": "struct VerificationAddAddressBody",
+            "name": "verification_add_eth_address_body",
+            "type": "tuple"
+          },
+          {
+            "internalType": "bool",
+            "name": "verification_remove_body",
+            "type": "bool"
+          },
+          {
+            "internalType": "bool",
+            "name": "deprecated_signer_add_body",
+            "type": "bool"
+          },
+          {
+            "internalType": "bool",
+            "name": "user_data_body",
+            "type": "bool"
+          },
+          {
+            "internalType": "bool",
+            "name": "deprecated_signer_remove_body",
+            "type": "bool"
+          },
+          {
+            "internalType": "bool",
+            "name": "link_body",
+            "type": "bool"
+          },
+          {
+            "internalType": "bool",
+            "name": "username_proof_body",
+            "type": "bool"
+          },
+          {
+            "internalType": "bool",
+            "name": "frame_action_body",
+            "type": "bool"
+          }
+        ],
+        "internalType": "struct MessageDataVerificationAddAddress",
+        "name": "claim",
+        "type": "tuple"
       },
       {
         "internalType": "bytes",
@@ -18,8 +137,151 @@
       }
     ],
     "name": "verifyEthAddressClaim",
+    "outputs": [
+      {
+        "internalType": "bool",
+        "name": "",
+        "type": "bool"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "components": [
+          {
+            "internalType": "enum MessageType",
+            "name": "type_",
+            "type": "MessageType"
+          },
+          {
+            "internalType": "uint64",
+            "name": "fid",
+            "type": "uint64"
+          },
+          {
+            "internalType": "uint32",
+            "name": "timestamp",
+            "type": "uint32"
+          },
+          {
+            "internalType": "enum FarcasterNetwork",
+            "name": "network",
+            "type": "FarcasterNetwork"
+          },
+          {
+            "internalType": "bool",
+            "name": "cast_add_body",
+            "type": "bool"
+          },
+          {
+            "internalType": "bool",
+            "name": "cast_remove_body",
+            "type": "bool"
+          },
+          {
+            "internalType": "bool",
+            "name": "reaction_body",
+            "type": "bool"
+          },
+          {
+            "internalType": "bool",
+            "name": "empty",
+            "type": "bool"
+          },
+          {
+            "components": [
+              {
+                "internalType": "bytes",
+                "name": "address_",
+                "type": "bytes"
+              },
+              {
+                "internalType": "bytes",
+                "name": "claim_signature",
+                "type": "bytes"
+              },
+              {
+                "internalType": "bytes",
+                "name": "block_hash",
+                "type": "bytes"
+              },
+              {
+                "internalType": "uint32",
+                "name": "verification_type",
+                "type": "uint32"
+              },
+              {
+                "internalType": "uint32",
+                "name": "chain_id",
+                "type": "uint32"
+              },
+              {
+                "internalType": "bool",
+                "name": "unknown_6",
+                "type": "bool"
+              },
+              {
+                "internalType": "enum Protocol",
+                "name": "protocol",
+                "type": "Protocol"
+              }
+            ],
+            "internalType": "struct VerificationAddAddressBody",
+            "name": "verification_add_eth_address_body",
+            "type": "tuple"
+          },
+          {
+            "internalType": "bool",
+            "name": "verification_remove_body",
+            "type": "bool"
+          },
+          {
+            "internalType": "bool",
+            "name": "deprecated_signer_add_body",
+            "type": "bool"
+          },
+          {
+            "internalType": "bool",
+            "name": "user_data_body",
+            "type": "bool"
+          },
+          {
+            "internalType": "bool",
+            "name": "deprecated_signer_remove_body",
+            "type": "bool"
+          },
+          {
+            "internalType": "bool",
+            "name": "link_body",
+            "type": "bool"
+          },
+          {
+            "internalType": "bool",
+            "name": "username_proof_body",
+            "type": "bool"
+          },
+          {
+            "internalType": "bool",
+            "name": "frame_action_body",
+            "type": "bool"
+          }
+        ],
+        "internalType": "struct MessageDataVerificationAddAddress",
+        "name": "claim",
+        "type": "tuple"
+      },
+      {
+        "internalType": "bytes",
+        "name": "signature",
+        "type": "bytes"
+      }
+    ],
+    "name": "verifyEthAddressClaimAndRevert",
     "outputs": [],
-    "stateMutability": "pure",
+    "stateMutability": "view",
     "type": "function"
   },
   {
