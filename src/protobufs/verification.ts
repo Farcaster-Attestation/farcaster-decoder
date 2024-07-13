@@ -29,7 +29,7 @@ export interface MessageDataVerificationAddAddress {
   castRemoveBody: boolean;
   reactionBody: boolean;
   empty: boolean;
-  verificationAddEthAddressBody: VerificationAddAddressBody | undefined;
+  verificationAddAddressBody: VerificationAddAddressBody | undefined;
   verificationRemoveBody: boolean;
   deprecatedSignerAddBody: boolean;
   userDataBody: boolean;
@@ -56,7 +56,7 @@ export interface MessageDataVerificationRemove {
   castRemoveBody: boolean;
   reactionBody: boolean;
   empty: boolean;
-  verificationAddEthAddressBody: boolean;
+  verificationAddAddressBody: boolean;
   verificationRemoveBody: VerificationRemoveBody | undefined;
   deprecatedSignerAddBody: boolean;
   userDataBody: boolean;
@@ -76,7 +76,7 @@ function createBaseMessageDataVerificationAddAddress(): MessageDataVerificationA
     castRemoveBody: false,
     reactionBody: false,
     empty: false,
-    verificationAddEthAddressBody: undefined,
+    verificationAddAddressBody: undefined,
     verificationRemoveBody: false,
     deprecatedSignerAddBody: false,
     userDataBody: false,
@@ -113,8 +113,8 @@ export const MessageDataVerificationAddAddress = {
     if (message.empty === true) {
       writer.uint32(64).bool(message.empty);
     }
-    if (message.verificationAddEthAddressBody !== undefined) {
-      VerificationAddAddressBody.encode(message.verificationAddEthAddressBody, writer.uint32(74).fork()).ldelim();
+    if (message.verificationAddAddressBody !== undefined) {
+      VerificationAddAddressBody.encode(message.verificationAddAddressBody, writer.uint32(74).fork()).ldelim();
     }
     if (message.verificationRemoveBody === true) {
       writer.uint32(80).bool(message.verificationRemoveBody);
@@ -208,7 +208,7 @@ export const MessageDataVerificationAddAddress = {
             break;
           }
 
-          message.verificationAddEthAddressBody = VerificationAddAddressBody.decode(reader, reader.uint32());
+          message.verificationAddAddressBody = VerificationAddAddressBody.decode(reader, reader.uint32());
           continue;
         case 10:
           if (tag != 80) {
@@ -278,8 +278,8 @@ export const MessageDataVerificationAddAddress = {
       castRemoveBody: isSet(object.castRemoveBody) ? Boolean(object.castRemoveBody) : false,
       reactionBody: isSet(object.reactionBody) ? Boolean(object.reactionBody) : false,
       empty: isSet(object.empty) ? Boolean(object.empty) : false,
-      verificationAddEthAddressBody: isSet(object.verificationAddEthAddressBody)
-        ? VerificationAddAddressBody.fromJSON(object.verificationAddEthAddressBody)
+      verificationAddAddressBody: isSet(object.verificationAddAddressBody)
+        ? VerificationAddAddressBody.fromJSON(object.verificationAddAddressBody)
         : undefined,
       verificationRemoveBody: isSet(object.verificationRemoveBody) ? Boolean(object.verificationRemoveBody) : false,
       deprecatedSignerAddBody: isSet(object.deprecatedSignerAddBody) ? Boolean(object.deprecatedSignerAddBody) : false,
@@ -303,9 +303,9 @@ export const MessageDataVerificationAddAddress = {
     message.castRemoveBody !== undefined && (obj.castRemoveBody = message.castRemoveBody);
     message.reactionBody !== undefined && (obj.reactionBody = message.reactionBody);
     message.empty !== undefined && (obj.empty = message.empty);
-    message.verificationAddEthAddressBody !== undefined &&
-      (obj.verificationAddEthAddressBody = message.verificationAddEthAddressBody
-        ? VerificationAddAddressBody.toJSON(message.verificationAddEthAddressBody)
+    message.verificationAddAddressBody !== undefined &&
+      (obj.verificationAddAddressBody = message.verificationAddAddressBody
+        ? VerificationAddAddressBody.toJSON(message.verificationAddAddressBody)
         : undefined);
     message.verificationRemoveBody !== undefined && (obj.verificationRemoveBody = message.verificationRemoveBody);
     message.deprecatedSignerAddBody !== undefined && (obj.deprecatedSignerAddBody = message.deprecatedSignerAddBody);
@@ -336,9 +336,9 @@ export const MessageDataVerificationAddAddress = {
     message.castRemoveBody = object.castRemoveBody ?? false;
     message.reactionBody = object.reactionBody ?? false;
     message.empty = object.empty ?? false;
-    message.verificationAddEthAddressBody =
-      (object.verificationAddEthAddressBody !== undefined && object.verificationAddEthAddressBody !== null)
-        ? VerificationAddAddressBody.fromPartial(object.verificationAddEthAddressBody)
+    message.verificationAddAddressBody =
+      (object.verificationAddAddressBody !== undefined && object.verificationAddAddressBody !== null)
+        ? VerificationAddAddressBody.fromPartial(object.verificationAddAddressBody)
         : undefined;
     message.verificationRemoveBody = object.verificationRemoveBody ?? false;
     message.deprecatedSignerAddBody = object.deprecatedSignerAddBody ?? false;
@@ -361,7 +361,7 @@ function createBaseMessageDataVerificationRemove(): MessageDataVerificationRemov
     castRemoveBody: false,
     reactionBody: false,
     empty: false,
-    verificationAddEthAddressBody: false,
+    verificationAddAddressBody: false,
     verificationRemoveBody: undefined,
     deprecatedSignerAddBody: false,
     userDataBody: false,
@@ -398,8 +398,8 @@ export const MessageDataVerificationRemove = {
     if (message.empty === true) {
       writer.uint32(64).bool(message.empty);
     }
-    if (message.verificationAddEthAddressBody === true) {
-      writer.uint32(72).bool(message.verificationAddEthAddressBody);
+    if (message.verificationAddAddressBody === true) {
+      writer.uint32(72).bool(message.verificationAddAddressBody);
     }
     if (message.verificationRemoveBody !== undefined) {
       VerificationRemoveBody.encode(message.verificationRemoveBody, writer.uint32(82).fork()).ldelim();
@@ -493,7 +493,7 @@ export const MessageDataVerificationRemove = {
             break;
           }
 
-          message.verificationAddEthAddressBody = reader.bool();
+          message.verificationAddAddressBody = reader.bool();
           continue;
         case 10:
           if (tag != 82) {
@@ -563,8 +563,8 @@ export const MessageDataVerificationRemove = {
       castRemoveBody: isSet(object.castRemoveBody) ? Boolean(object.castRemoveBody) : false,
       reactionBody: isSet(object.reactionBody) ? Boolean(object.reactionBody) : false,
       empty: isSet(object.empty) ? Boolean(object.empty) : false,
-      verificationAddEthAddressBody: isSet(object.verificationAddEthAddressBody)
-        ? Boolean(object.verificationAddEthAddressBody)
+      verificationAddAddressBody: isSet(object.verificationAddAddressBody)
+        ? Boolean(object.verificationAddAddressBody)
         : false,
       verificationRemoveBody: isSet(object.verificationRemoveBody)
         ? VerificationRemoveBody.fromJSON(object.verificationRemoveBody)
@@ -590,8 +590,8 @@ export const MessageDataVerificationRemove = {
     message.castRemoveBody !== undefined && (obj.castRemoveBody = message.castRemoveBody);
     message.reactionBody !== undefined && (obj.reactionBody = message.reactionBody);
     message.empty !== undefined && (obj.empty = message.empty);
-    message.verificationAddEthAddressBody !== undefined &&
-      (obj.verificationAddEthAddressBody = message.verificationAddEthAddressBody);
+    message.verificationAddAddressBody !== undefined &&
+      (obj.verificationAddAddressBody = message.verificationAddAddressBody);
     message.verificationRemoveBody !== undefined && (obj.verificationRemoveBody = message.verificationRemoveBody
       ? VerificationRemoveBody.toJSON(message.verificationRemoveBody)
       : undefined);
@@ -621,7 +621,7 @@ export const MessageDataVerificationRemove = {
     message.castRemoveBody = object.castRemoveBody ?? false;
     message.reactionBody = object.reactionBody ?? false;
     message.empty = object.empty ?? false;
-    message.verificationAddEthAddressBody = object.verificationAddEthAddressBody ?? false;
+    message.verificationAddAddressBody = object.verificationAddAddressBody ?? false;
     message.verificationRemoveBody =
       (object.verificationRemoveBody !== undefined && object.verificationRemoveBody !== null)
         ? VerificationRemoveBody.fromPartial(object.verificationRemoveBody)

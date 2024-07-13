@@ -7,6 +7,28 @@
   {
     "inputs": [
       {
+        "internalType": "uint256",
+        "name": "chainId",
+        "type": "uint256"
+      }
+    ],
+    "name": "InvalidVerificationChain",
+    "type": "error"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "enum Protocol",
+        "name": "protocol",
+        "type": "uint8"
+      }
+    ],
+    "name": "InvalidVerificationProtocol",
+    "type": "error"
+  },
+  {
+    "inputs": [
+      {
         "components": [
           {
             "internalType": "enum MessageType",
@@ -87,7 +109,7 @@
               }
             ],
             "internalType": "struct VerificationAddAddressBody",
-            "name": "verification_add_eth_address_body",
+            "name": "verification_add_address_body",
             "type": "tuple"
           },
           {
@@ -129,11 +151,6 @@
         "internalType": "struct MessageDataVerificationAddAddress",
         "name": "claim",
         "type": "tuple"
-      },
-      {
-        "internalType": "bytes",
-        "name": "signature",
-        "type": "bytes"
       }
     ],
     "name": "verifyEthAddressClaim",
@@ -230,7 +247,7 @@
               }
             ],
             "internalType": "struct VerificationAddAddressBody",
-            "name": "verification_add_eth_address_body",
+            "name": "verification_add_address_body",
             "type": "tuple"
           },
           {
@@ -272,11 +289,6 @@
         "internalType": "struct MessageDataVerificationAddAddress",
         "name": "claim",
         "type": "tuple"
-      },
-      {
-        "internalType": "bytes",
-        "name": "signature",
-        "type": "bytes"
       }
     ],
     "name": "verifyEthAddressClaimAndRevert",

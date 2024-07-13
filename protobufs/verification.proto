@@ -15,7 +15,7 @@ message MessageDataVerificationAddAddress {
   bool cast_remove_body = 6;
   bool reaction_body = 7;
   bool empty = 8;
-  VerificationAddAddressBody verification_add_eth_address_body = 9;
+  VerificationAddAddressBody verification_add_address_body = 9;
   bool verification_remove_body = 10;
   bool deprecated_signer_add_body = 11;
   bool user_data_body = 12;
@@ -39,7 +39,7 @@ message MessageDataVerificationRemove {
   bool cast_remove_body = 6;
   bool reaction_body = 7;
   bool empty = 8;
-  bool verification_add_eth_address_body = 9;
+  bool verification_add_address_body = 9;
   VerificationRemoveBody verification_remove_body = 10;
   bool deprecated_signer_add_body = 11;
   bool user_data_body = 12;

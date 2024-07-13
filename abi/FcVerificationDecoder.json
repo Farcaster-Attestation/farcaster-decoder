@@ -100,7 +100,7 @@
               }
             ],
             "internalType": "struct VerificationAddAddressBody",
-            "name": "verification_add_eth_address_body",
+            "name": "verification_add_address_body",
             "type": "tuple"
           },
           {
@@ -201,7 +201,7 @@
           },
           {
             "internalType": "bool",
-            "name": "verification_add_eth_address_body",
+            "name": "verification_add_address_body",
             "type": "bool"
           },
           {

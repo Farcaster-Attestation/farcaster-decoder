@@ -1,4 +1,4 @@
-import { CastAddBody, Factories, FarcasterNetwork, MessageData, MessageType, ReactionType, makeCastAdd, makeMessageHash } from '@farcaster/core';
+import { CastAddBody, CastType, Factories, FarcasterNetwork, MessageData, MessageType, ReactionType, makeCastAdd, makeMessageHash } from '@farcaster/core';
 import { expect } from 'chai';
 import { ethers } from 'hardhat';
 import { fid, hash, timestamp } from './constants';
@@ -57,6 +57,7 @@ describe('Test decodings', async () => {
           text: '@dwr.eth dau goes brrr',
           mentionsPositions: [1],
           embeds: [],
+          type: CastType.CAST,
         }
       };
   
@@ -97,6 +98,7 @@ describe('Test decodings', async () => {
           text: '@dwr.eth dau goes brrr',
           mentionsPositions: [],
           embeds: [],
+          type: CastType.CAST,
         }
       };
   
@@ -134,6 +136,7 @@ describe('Test decodings', async () => {
           text: '@dwr.eth dau goes brrr',
           mentionsPositions: [1],
           embeds: [],
+          type: CastType.CAST,
         }
       };
   
@@ -208,7 +211,10 @@ describe('Test decodings', async () => {
             fid,
             hash
           },
-          inputText: Buffer.from('GM')
+          inputText: Buffer.from('GM'),
+          state: new Uint8Array(),
+          transactionId: new Uint8Array(),
+          address: new Uint8Array(),
         }
       };
 

@@ -15,7 +15,7 @@ struct MessageDataVerificationAddAddress {
     bool cast_remove_body;
     bool reaction_body;
     bool empty;
-    VerificationAddAddressBody verification_add_eth_address_body;
+    VerificationAddAddressBody verification_add_address_body;
     bool verification_remove_body;
     bool deprecated_signer_add_body;
     bool user_data_body;
@@ -481,7 +481,7 @@ library MessageDataVerificationAddAddressCodec {
         return (true, pos);
     }
 
-    // MessageDataVerificationAddAddress.verification_add_eth_address_body
+    // MessageDataVerificationAddAddress.verification_add_address_body
     function decode_9(uint64 pos, bytes memory buf, MessageDataVerificationAddAddress memory instance) internal pure returns (bool, uint64) {
         bool success;
 
@@ -502,7 +502,7 @@ library MessageDataVerificationAddAddressCodec {
             return (false, pos);
         }
 
-        instance.verification_add_eth_address_body = nestedInstance;
+        instance.verification_add_address_body = nestedInstance;
 
         return (true, pos);
     }
@@ -658,7 +658,7 @@ struct MessageDataVerificationRemove {
     bool cast_remove_body;
     bool reaction_body;
     bool empty;
-    bool verification_add_eth_address_body;
+    bool verification_add_address_body;
     VerificationRemoveBody verification_remove_body;
     bool deprecated_signer_add_body;
     bool user_data_body;
@@ -1124,7 +1124,7 @@ library MessageDataVerificationRemoveCodec {
         return (true, pos);
     }
 
-    // MessageDataVerificationRemove.verification_add_eth_address_body
+    // MessageDataVerificationRemove.verification_add_address_body
     function decode_9(uint64 pos, bytes memory buf, MessageDataVerificationRemove memory instance) internal pure returns (bool, uint64) {
         bool success;
 
@@ -1139,7 +1139,7 @@ library MessageDataVerificationRemoveCodec {
             return (false, pos);
         }
 
-        instance.verification_add_eth_address_body = v;
+        instance.verification_add_address_body = v;
 
         return (true, pos);
     }

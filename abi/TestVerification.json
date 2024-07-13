@@ -22,9 +22,9 @@
       },
       {
         "indexed": false,
-        "internalType": "bytes",
+        "internalType": "bytes32",
         "name": "block_hash",
-        "type": "bytes"
+        "type": "bytes32"
       },
       {
         "indexed": false,
@@ -40,12 +40,37 @@
       },
       {
         "indexed": false,
-        "internalType": "uint256",
+        "internalType": "uint8",
         "name": "protocol",
-        "type": "uint256"
+        "type": "uint8"
       }
     ],
     "name": "VerificationAddEthAddressBodyVerified",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "fid",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "address_",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint8",
+        "name": "protocol",
+        "type": "uint8"
+      }
+    ],
+    "name": "VerificationRemoveBodyVerified",
     "type": "event"
   },
   {
@@ -72,6 +97,34 @@
       }
     ],
     "name": "verifyVerificationAddEthAddress",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "bytes32",
+        "name": "public_key",
+        "type": "bytes32"
+      },
+      {
+        "internalType": "bytes32",
+        "name": "signature_r",
+        "type": "bytes32"
+      },
+      {
+        "internalType": "bytes32",
+        "name": "signature_s",
+        "type": "bytes32"
+      },
+      {
+        "internalType": "bytes",
+        "name": "message",
+        "type": "bytes"
+      }
+    ],
+    "name": "verifyVerificationRemove",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"

@@ -6,11 +6,13 @@ import {SignatureChecker} from "@openzeppelin/contracts/utils/cryptography/Signa
 
 import {Blake3} from "../libraries/Blake3.sol";
 import {Ed25519} from "../libraries/Ed25519.sol";
-import {MessageDataVerificationAddAddress} from "./FcMessageDecoder.sol";
-import {FcTypeConversion} from "./FcTypeConversion.sol";
+import {MessageDataVerificationAddAddress, Protocol} from "./FcMessageDecoder.sol";
+import "./FcTypeConversion.sol";
 
 library FcMessageVerification {
     error InvalidSignature();
+    error InvalidVerificationProtocol(Protocol protocol);
+    error InvalidVerificationChain(uint256 chainId);
 
     function verifyMessage(
         bytes32 public_key,
@@ -83,11 +85,22 @@ library FcMessageVerification {
     }
 
     function verifyEthAddressClaim(
-        MessageDataVerificationAddAddress memory claim,
-        bytes memory signature
+        MessageDataVerificationAddAddress memory claim
     ) public view returns (bool) {
-        address target = FcTypeConversion.bytesToAddress(
-            claim.verification_add_eth_address_body.address_
+        if (claim.verification_add_address_body.protocol != Protocol.PROTOCOL_ETHEREUM) {
+            revert InvalidVerificationProtocol(claim.verification_add_address_body.protocol);
+        }
+
+        if (claim.verification_add_address_body.chain_id != 0 && claim.verification_add_address_body.chain_id != block.chainid) {
+            revert InvalidVerificationChain(claim.verification_add_address_body.chain_id);
+        }
+
+        if (claim.verification_add_address_body.verification_type == 1 && claim.verification_add_address_body.chain_id != block.chainid) {
+            revert InvalidVerificationChain(claim.verification_add_address_body.chain_id);
+        }
+
+        address target = bytesToAddress(
+            claim.verification_add_address_body.address_
         );
 
         bytes32 structHash = keccak256(
@@ -95,28 +108,28 @@ library FcMessageVerification {
                 VERIFICATION_CLAIM_TYPEHASH,
                 claim.fid,
                 target,
-                FcTypeConversion.bytesToBytes32(
-                    claim.verification_add_eth_address_body.block_hash
-                ),
+                bytesToBytes32(claim.verification_add_address_body.block_hash),
                 claim.network
             )
         );
 
         bytes32 digest = MessageHashUtils.toTypedDataHash(
-            _buildDomainSeparator(
-                claim.verification_add_eth_address_body.chain_id
-            ),
+            _buildDomainSeparator(claim.verification_add_address_body.chain_id),
             structHash
         );
 
-        return SignatureChecker.isValidSignatureNow(target, digest, signature);
+        return
+            SignatureChecker.isValidSignatureNow(
+                target,
+                digest,
+                claim.verification_add_address_body.claim_signature
+            );
     }
 
     function verifyEthAddressClaimAndRevert(
-        MessageDataVerificationAddAddress memory claim,
-        bytes memory signature
+        MessageDataVerificationAddAddress memory claim
     ) public view {
-        if (!verifyEthAddressClaim(claim, signature)) {
+        if (!verifyEthAddressClaim(claim)) {
             revert InvalidSignature();
         }
     }
