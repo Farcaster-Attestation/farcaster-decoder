@@ -1,6 +1,6 @@
 {
   "name": "@farcaster-attestation/farcaster-solidity",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "main": "index.js",
   "author": "Chomtana, Sergey Potekhin <hello@sergeypotekhin.com>",
   "license": "MIT",
