@@ -4,6 +4,10 @@ import "hardhat-gas-reporter";
 import "hardhat-contract-sizer";
 import "hardhat-abi-exporter";
 
+const accounts = [
+  process.env.PRIVATE_KEY!,
+]
+
 const config: HardhatUserConfig = {
   solidity: {
     version: "0.8.24",
@@ -20,13 +24,32 @@ const config: HardhatUserConfig = {
   networks: {
     hardhat: {
       // allowUnlimitedContractSize: true,
+    },
+    optimismSepolia: {
+      url: "https://sepolia.optimism.io",
+      accounts,
     }
   },
   abiExporter: {
     path: './abi',
     runOnCompile: true,
     clear: true,
-    flat: true,  
+    flat: true, 
+  },
+  etherscan: {
+    apiKey: {
+      optimismSepolia: process.env.ETHERSCAN_API_KEY!,
+    },
+    customChains: [
+      {
+        network: "optimismSepolia",
+        chainId: 11155420,
+        urls: {
+            apiURL: "https://api-sepolia-optimism.etherscan.io/api",
+            browserURL: "https://sepolia-optimism.etherscan.io"
+        }
+      },
+    ]
   }
 };
 
