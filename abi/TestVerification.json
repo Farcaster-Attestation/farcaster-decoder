@@ -124,9 +124,77 @@
         "type": "bytes"
       }
     ],
+    "name": "verifyVerificationAddEthAddressBool",
+    "outputs": [
+      {
+        "internalType": "bool",
+        "name": "",
+        "type": "bool"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "bytes32",
+        "name": "public_key",
+        "type": "bytes32"
+      },
+      {
+        "internalType": "bytes32",
+        "name": "signature_r",
+        "type": "bytes32"
+      },
+      {
+        "internalType": "bytes32",
+        "name": "signature_s",
+        "type": "bytes32"
+      },
+      {
+        "internalType": "bytes",
+        "name": "message",
+        "type": "bytes"
+      }
+    ],
     "name": "verifyVerificationRemove",
     "outputs": [],
     "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "bytes32",
+        "name": "public_key",
+        "type": "bytes32"
+      },
+      {
+        "internalType": "bytes32",
+        "name": "signature_r",
+        "type": "bytes32"
+      },
+      {
+        "internalType": "bytes32",
+        "name": "signature_s",
+        "type": "bytes32"
+      },
+      {
+        "internalType": "bytes",
+        "name": "message",
+        "type": "bytes"
+      }
+    ],
+    "name": "verifyVerificationRemoveBool",
+    "outputs": [
+      {
+        "internalType": "bool",
+        "name": "",
+        "type": "bool"
+      }
+    ],
+    "stateMutability": "pure",
     "type": "function"
   }
 ]

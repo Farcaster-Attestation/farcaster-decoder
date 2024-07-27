@@ -48,6 +48,34 @@ contract TestVerification {
         );
     }
 
+    function verifyVerificationAddEthAddressBool(
+        bytes32 public_key,
+        bytes32 signature_r,
+        bytes32 signature_s,
+        bytes memory message
+    ) external view returns (bool) {
+        bool messageVerified = FcMessageVerification.verifyMessage(
+            public_key,
+            signature_r,
+            signature_s,
+            message
+        );
+
+        if (!messageVerified) return false;
+
+        MessageDataVerificationAddAddress
+            memory message_data = FcVerificationDecoder
+                .decodeVerificationAddAddress(message);
+
+        bool claimVerified = FcMessageVerification.verifyEthAddressClaim(
+            message_data
+        );
+
+        if (!claimVerified) return false;
+
+        return true;
+    }
+
     event VerificationRemoveBodyVerified(
         uint256 indexed fid,
         address address_,
@@ -76,5 +104,25 @@ contract TestVerification {
             bytesToAddress(message_data.verification_remove_body.address_),
             uint8(message_data.verification_remove_body.protocol)
         );
+    }
+
+    function verifyVerificationRemoveBool(
+        bytes32 public_key,
+        bytes32 signature_r,
+        bytes32 signature_s,
+        bytes memory message
+    ) external pure returns (bool) {
+        bool messageVerified = FcMessageVerification.verifyMessage(
+            public_key,
+            signature_r,
+            signature_s,
+            message
+        );
+
+        if (!messageVerified) return false;
+
+        FcVerificationDecoder.decodeVerificationRemove(message);
+
+        return true;
     }
 }

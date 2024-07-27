@@ -10,10 +10,25 @@ import {MessageDataVerificationAddAddress, Protocol} from "./FcMessageDecoder.so
 import "./FcTypeConversion.sol";
 
 library FcMessageVerification {
+    /// @dev Error indicating that the signature is invalid.
     error InvalidSignature();
+
+    /// @dev Error indicating that the verification protocol is invalid.
+    /// @param protocol The invalid protocol.
     error InvalidVerificationProtocol(Protocol protocol);
+
+    /// @dev Error indicating that the verification chain ID is invalid.
+    /// @param chainId The invalid chain ID.
     error InvalidVerificationChain(uint256 chainId);
 
+    /**
+     * @notice Verifies the given message using Ed25519 signature scheme.
+     * @param public_key The public key used for verification.
+     * @param signature_r The R component of the signature.
+     * @param signature_s The S component of the signature.
+     * @param message The message to verify.
+     * @return True if the signature is valid, false otherwise.
+     */
     function verifyMessage(
         bytes32 public_key,
         bytes32 signature_r,
@@ -28,6 +43,14 @@ library FcMessageVerification {
             Ed25519.verify(public_key, signature_r, signature_s, message_hash);
     }
 
+    /**
+     * @notice Verifies the given message and reverts if the signature is invalid.
+     * @param public_key The public key used for verification.
+     * @param signature_r The R component of the signature.
+     * @param signature_s The S component of the signature.
+     * @param message The message to verify.
+     * @dev Reverts with `InvalidSignature` if the signature is invalid.
+     */
     function verifyMessageAndRevert(
         bytes32 public_key,
         bytes32 signature_r,
@@ -68,6 +91,11 @@ library FcMessageVerification {
             "VerificationClaim(uint256 fid,address address,bytes32 blockHash,uint8 network)"
         );
 
+    /**
+     * @notice Builds the wallet verification domain separator for EIP-712.
+     * @param chainId The chain ID.
+     * @return The domain separator.
+     */
     function _buildDomainSeparator(
         uint256 chainId
     ) private pure returns (bytes32) {
@@ -84,6 +112,13 @@ library FcMessageVerification {
             );
     }
 
+    /**
+     * @notice Verifies an Ethereum address claim.
+     * @param claim The claim data to verify.
+     * @return True if the claim is valid, false otherwise.
+     * @dev Reverts with `InvalidVerificationProtocol` if the protocol is not Ethereum.
+     * Reverts with `InvalidVerificationChain` if the chain ID is invalid.
+     */
     function verifyEthAddressClaim(
         MessageDataVerificationAddAddress memory claim
     ) public view returns (bool) {
@@ -126,6 +161,13 @@ library FcMessageVerification {
             );
     }
 
+    /**
+     * @notice Verifies an Ethereum address claim and reverts if invalid.
+     * @param claim The claim data to verify.
+     * @dev Reverts with `InvalidSignature` if the claim is invalid.
+     * Reverts with `InvalidVerificationProtocol` if the protocol is not Ethereum.
+     * Reverts with `InvalidVerificationChain` if the chain ID is invalid.
+     */
     function verifyEthAddressClaimAndRevert(
         MessageDataVerificationAddAddress memory claim
     ) public view {

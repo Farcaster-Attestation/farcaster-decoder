@@ -3,6 +3,8 @@ import "@nomicfoundation/hardhat-toolbox";
 import "hardhat-gas-reporter";
 import "hardhat-contract-sizer";
 import "hardhat-abi-exporter";
+import { config as dotenv } from "dotenv"
+dotenv()
 
 const accounts = [
   process.env.PRIVATE_KEY!,

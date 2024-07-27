@@ -5,7 +5,13 @@
     "type": "error"
   },
   {
-    "inputs": [],
+    "inputs": [
+      {
+        "internalType": "enum MessageType",
+        "name": "messageType",
+        "type": "uint8"
+      }
+    ],
     "name": "InvalidMessageType",
     "type": "error"
   },
