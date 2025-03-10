@@ -1,5 +1,10 @@
 [
   {
+    "inputs": [],
+    "name": "InvalidClaim",
+    "type": "error"
+  },
+  {
     "anonymous": false,
     "inputs": [
       {
@@ -104,6 +109,25 @@
   {
     "inputs": [
       {
+        "internalType": "bytes",
+        "name": "message",
+        "type": "bytes"
+      }
+    ],
+    "name": "verifyVerificationAddEthAddressBody",
+    "outputs": [
+      {
+        "internalType": "bool",
+        "name": "",
+        "type": "bool"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
         "internalType": "bytes32",
         "name": "public_key",
         "type": "bytes32"
@@ -166,6 +190,35 @@
   {
     "inputs": [
       {
+        "internalType": "bytes",
+        "name": "message",
+        "type": "bytes"
+      },
+      {
+        "internalType": "address",
+        "name": "verifyAddress",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "fid",
+        "type": "uint256"
+      }
+    ],
+    "name": "verifyVerificationRemoveBody",
+    "outputs": [
+      {
+        "internalType": "bool",
+        "name": "",
+        "type": "bool"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
         "internalType": "bytes32",
         "name": "public_key",
         "type": "bytes32"
@@ -194,7 +247,7 @@
         "type": "bool"
       }
     ],
-    "stateMutability": "pure",
+    "stateMutability": "view",
     "type": "function"
   }
 ]

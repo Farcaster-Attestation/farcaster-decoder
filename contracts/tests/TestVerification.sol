@@ -6,6 +6,8 @@ import "../farcaster/FcMessageVerification.sol";
 import "../farcaster/FcTypeConversion.sol";
 
 contract TestVerification {
+    error InvalidClaim();
+
     event VerificationAddEthAddressBodyVerified(
         uint256 indexed fid,
         address address_,
@@ -33,7 +35,9 @@ contract TestVerification {
             memory message_data = FcVerificationDecoder
                 .decodeVerificationAddAddress(message);
 
-        FcMessageVerification.verifyEthAddressClaimAndRevert(message_data);
+        if (!FcMessageVerification.verifyEthAddressClaim(message_data)) {
+            revert InvalidClaim();
+        }
 
         emit VerificationAddEthAddressBodyVerified(
             message_data.fid,
@@ -99,6 +103,15 @@ contract TestVerification {
             memory message_data = FcVerificationDecoder
                 .decodeVerificationRemove(message);
 
+        if (!FcMessageVerification.verifyRemove(
+                message_data,
+                bytesToAddress(message_data.verification_remove_body.address_),
+                message_data.fid
+            )
+        ) {
+            revert InvalidClaim();
+        }
+
         emit VerificationRemoveBodyVerified(
             message_data.fid,
             bytesToAddress(message_data.verification_remove_body.address_),
@@ -111,7 +124,7 @@ contract TestVerification {
         bytes32 signature_r,
         bytes32 signature_s,
         bytes memory message
-    ) external pure returns (bool) {
+    ) external view returns (bool) {
         bool messageVerified = FcMessageVerification.verifyMessage(
             public_key,
             signature_r,
@@ -121,7 +134,53 @@ contract TestVerification {
 
         if (!messageVerified) return false;
 
-        FcVerificationDecoder.decodeVerificationRemove(message);
+        MessageDataVerificationRemove
+            memory message_data = FcVerificationDecoder
+                .decodeVerificationRemove(message);
+
+        bool claimVerified = FcMessageVerification.verifyRemove(
+            message_data,
+            bytesToAddress(message_data.verification_remove_body.address_),
+            message_data.fid
+        );
+
+        if (!claimVerified) return false;
+
+        return true;
+    }
+
+    function verifyVerificationAddEthAddressBody(
+        bytes memory message
+    ) external view returns (bool) {
+        MessageDataVerificationAddAddress
+            memory message_data = FcVerificationDecoder
+                .decodeVerificationAddAddress(message);
+
+        bool claimVerified = FcMessageVerification.verifyEthAddressClaim(
+            message_data
+        );
+
+        if (!claimVerified) return false;
+
+        return true;
+    }
+
+    function verifyVerificationRemoveBody(
+        bytes memory message,
+        address verifyAddress,
+        uint256 fid
+    ) external view returns (bool) {
+        MessageDataVerificationRemove
+            memory message_data = FcVerificationDecoder
+                .decodeVerificationRemove(message);
+
+        bool claimVerified = FcMessageVerification.verifyRemove(
+            message_data,
+            verifyAddress,
+            fid
+        );
+
+        if (!claimVerified) return false;
 
         return true;
     }

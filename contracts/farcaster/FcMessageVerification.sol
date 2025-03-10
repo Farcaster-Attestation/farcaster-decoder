@@ -6,7 +6,8 @@ import {SignatureChecker} from "@openzeppelin/contracts/utils/cryptography/Signa
 
 import {Blake3} from "../libraries/Blake3.sol";
 import {Ed25519} from "../libraries/Ed25519.sol";
-import {MessageDataVerificationAddAddress, Protocol} from "./FcMessageDecoder.sol";
+import {FarcasterNetwork, Protocol} from "../protobufs/message.proto.sol";
+import {MessageDataVerificationAddAddress, MessageDataVerificationRemove, Protocol} from "./FcMessageDecoder.sol";
 import "./FcTypeConversion.sol";
 
 library FcMessageVerification {
@@ -20,6 +21,21 @@ library FcMessageVerification {
     /// @dev Error indicating that the verification chain ID is invalid.
     /// @param chainId The invalid chain ID.
     error InvalidVerificationChain(uint256 chainId);
+
+    /// @dev Error indicating that the verification type is invalid.
+    /// @param verificationType The invalid verification type.
+    error InvalidVerificationType(uint32 verificationType);
+
+    /// @dev Error indicating that the Farcaster network is not mainnet.
+    /// @param network The invalid network.
+    error InvalidFarcasterNetwork(FarcasterNetwork network);
+
+    /// @dev Error indicating that the verification timestamp is more than 15 minutes in the future.
+    /// @param timestamp The invalid timestamp.
+    error InvalidVerificationTimestamp(uint32 timestamp);
+
+    uint32 private constant VERIFICATION_TIMESTAMP_BUFFER = 15 minutes;
+    uint32 private constant VERIFICATION_TIMESTAMP_START = 1609459200;
 
     /**
      * @notice Verifies the given message using Ed25519 signature scheme.
@@ -134,6 +150,18 @@ library FcMessageVerification {
             revert InvalidVerificationChain(claim.verification_add_address_body.chain_id);
         }
 
+        if (claim.network != FarcasterNetwork.FARCASTER_NETWORK_MAINNET) {
+            revert InvalidFarcasterNetwork(claim.network);
+        }
+
+        if (claim.verification_add_address_body.verification_type != 0 && claim.verification_add_address_body.verification_type != 1) {
+            revert InvalidVerificationType(claim.verification_add_address_body.verification_type);
+        }
+
+        if (claim.timestamp > block.timestamp - VERIFICATION_TIMESTAMP_START + VERIFICATION_TIMESTAMP_BUFFER) {
+            revert InvalidVerificationTimestamp(claim.timestamp);
+        }
+
         address target = bytesToAddress(
             claim.verification_add_address_body.address_
         );
@@ -162,17 +190,38 @@ library FcMessageVerification {
     }
 
     /**
-     * @notice Verifies an Ethereum address claim and reverts if invalid.
-     * @param claim The claim data to verify.
-     * @dev Reverts with `InvalidSignature` if the claim is invalid.
-     * Reverts with `InvalidVerificationProtocol` if the protocol is not Ethereum.
-     * Reverts with `InvalidVerificationChain` if the chain ID is invalid.
+     * @notice Verifies a remove verification message.
+     * @param claim The remove verification message data to verify.
+     * @param verifyAddress The address to verify.
+     * @param fid The FID of the user.
+     * @return True if the verification is valid, false otherwise.
+     * @dev Verifies that the remove verification message is valid.
      */
-    function verifyEthAddressClaimAndRevert(
-        MessageDataVerificationAddAddress memory claim
-    ) public view {
-        if (!verifyEthAddressClaim(claim)) {
-            revert InvalidSignature();
+    function verifyRemove(
+        MessageDataVerificationRemove memory claim,
+        address verifyAddress,
+        uint256 fid
+    ) public view returns (bool) {
+        if (claim.network != FarcasterNetwork.FARCASTER_NETWORK_MAINNET) {
+            revert InvalidFarcasterNetwork(claim.network);
         }
+
+        if (claim.verification_remove_body.protocol != Protocol.PROTOCOL_ETHEREUM) {
+            revert InvalidVerificationProtocol(claim.verification_remove_body.protocol);
+        }
+
+        if (claim.timestamp > block.timestamp - VERIFICATION_TIMESTAMP_START + VERIFICATION_TIMESTAMP_BUFFER) {
+            revert InvalidVerificationTimestamp(claim.timestamp);
+        }
+
+        address target = bytesToAddress(
+            claim.verification_remove_body.address_
+        );
+
+        if (target != verifyAddress || claim.fid != fid) {
+            return false;
+        }
+
+        return true;
     }
 }

@@ -1,10 +1,10 @@
 {
   "name": "@farcaster-attestation/farcaster-solidity",
-  "version": "2.1.0",
+  "version": "2.2.0",
   "main": "index.js",
   "author": "Chomtana, Sergey Potekhin <hello@sergeypotekhin.com>",
   "license": "MIT",
-  "description": "A collection of Solidity libraries for interacting with the Farcaster messages on-chain",
+  "description": "A collection of Solidity libraries for interacting with the Farcaster messages on-chain. Audited by Cantina.",
   "scripts": {
     "lint": "yarn lint:sol",
     "lint:sol": "solhint \"contracts/**/*.sol\"",
